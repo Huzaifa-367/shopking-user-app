@@ -4,7 +4,6 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:shopperz/utils/api_list.dart';
 
 class AppServer {
   getRequest(
