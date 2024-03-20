@@ -59,7 +59,7 @@ class ProductShimmer extends StatelessWidget {
                   ),
                 },
                 SizedBox(
-                  height: 580.h,
+                  height: 550.h,
                   child: GridView.builder(
                     // primary: false,
                     scrollDirection: Axis.vertical,

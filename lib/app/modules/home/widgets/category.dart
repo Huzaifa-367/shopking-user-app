@@ -67,8 +67,8 @@ class CategoryWidget extends StatelessWidget {
                             ),
                           ),
                           placeholder: (context, imageProvider) => Container(
-                            height: 160.h,
-                            width: 140.w,
+                            height: 50.h,
+                            width: double.infinity,
                             decoration: BoxDecoration(
                               color: AppColor.whiteColor,
                               boxShadow: [

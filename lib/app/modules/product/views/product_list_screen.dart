@@ -128,10 +128,11 @@ class _ProductlistScreenState extends State<ProductlistScreen> {
                               ? allPopularController.popularList
                               : allFlashController.flashSaleList;
                           if (index == productListLength) {
-                            return ProductShimmer(
-                              count: 1,
-                              onlyContainer: true,
-                            );
+                            return const SizedBox.shrink();
+                            // ProductShimmer(
+                            //   count: 1,
+                            //   onlyContainer: true,
+                            // );
                           }
 
                           return Obx(

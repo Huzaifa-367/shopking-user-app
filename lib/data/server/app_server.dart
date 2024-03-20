@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:shopperz/utils/api_list.dart';
 
 class AppServer {
   getRequest(
@@ -313,7 +314,7 @@ class AppServer {
   static Map<String, String> _getHttpHeaders() {
     Map<String, String> headers = <String, String>{};
     headers['Authorization'] = initClass();
-    // headers['x-api-key'] = ApiList.licenseCode.toString();
+    headers['x-api-key'] = ApiList.licenseCode.toString();
     headers['Content-Type'] = 'application/json';
     headers['Accept'] = "application/json, text/plain, */*";
     headers['Access-Control-Allow-Origin'] = "*";
@@ -322,7 +323,7 @@ class AppServer {
 
   static Map<String, String> _getHttpHeadersNotToken() {
     Map<String, String> headers = <String, String>{};
-    // headers['x-api-key'] = ApiList.licenseCode.toString();
+    headers['x-api-key'] = ApiList.licenseCode.toString();
     headers['Content-Type'] = 'application/json';
     headers['Accept'] = "application/json, text/plain, */*";
     headers['Access-Control-Allow-Origin'] = "*";
@@ -331,7 +332,7 @@ class AppServer {
 
   static Map<String, String> getAuthHeaders() {
     Map<String, String> headers = <String, String>{};
-    // headers['x-api-key'] = ApiList.licenseCode.toString();
+    headers['x-api-key'] = ApiList.licenseCode.toString();
     headers['Content-Type'] = 'application/json';
     headers['Accept'] = "application/json, text/plain, */*";
     headers['Access-Control-Allow-Origin'] = "*";
@@ -344,7 +345,7 @@ class AppServer {
     var token = store.read('token');
     Map<String, String> headers = <String, String>{};
     headers['Authorization'] = token;
-    // headers['x-api-key'] = ApiList.licenseCode.toString();
+    headers['x-api-key'] = ApiList.licenseCode.toString();
     headers['Content-Type'] = 'application/json';
     headers['Accept'] = "application/json, text/plain, */*";
     headers['Access-Control-Allow-Origin'] = "*";

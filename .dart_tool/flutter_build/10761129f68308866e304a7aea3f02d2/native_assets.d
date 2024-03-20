@@ -1,0 +1,1 @@
+ E:\\ShopKing\\shopking-user-app\\.dart_tool\\flutter_build\\10761129f68308866e304a7aea3f02d2\\native_assets.yaml: 

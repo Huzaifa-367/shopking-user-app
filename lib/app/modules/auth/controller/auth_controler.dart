@@ -262,7 +262,7 @@ class AuthController extends GetxController {
     isLoading(true);
     try {
       final response = await AppServer()
-          .httpPost(endPoint: ApiList.register.toString(), body: {
+          .httpPost(endPoint: ApiList.registrationValidation.toString(), body: {
         "name": name,
         "email": email,
         "password": password,
@@ -270,7 +270,9 @@ class AuthController extends GetxController {
 
       if (response.statusCode == 200) {
         isLoading(false);
+
         OTPController otpController = Get.put(OTPController());
+
         otpController.sendOTPWithEmail(email: emailController.text);
         if (emailVerification == '5') {
           Get.to(() => OTPScreen(

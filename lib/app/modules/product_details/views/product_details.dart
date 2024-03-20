@@ -383,7 +383,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                             ? Colors.black
                                                             : Colors
                                                                 .transparent,
-                                                        width: 2),
+                                                        width: 1),
                                                     image: DecorationImage(
                                                         image: imageProvider,
                                                         fit: BoxFit.cover),
@@ -422,7 +422,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                           },
                                         ),
                                       ),
-                                SizedBox(height: 20.h),
+                                SizedBox(height: 10.h),
                                 Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
@@ -435,7 +435,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       size: 22.sp,
                                       weight: FontWeight.w700,
                                     ),
-                                    SizedBox(height: 8.h),
+                                    SizedBox(height: 2.h),
                                     Row(
                                       children: [
                                         Obx(() {
@@ -505,13 +505,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         })
                                       ],
                                     ),
-                                    SizedBox(height: 8.h),
+                                    SizedBox(height: 2.h),
                                     Row(
                                       children: [
                                         RatingBarIndicator(
                                           rating: double.parse(
                                               '${productDetailsController.productModel.value.data!.ratingStar.toString() == 'null' ? '0' : double.parse(productDetailsController.productModel.value.data!.ratingStar.toString()) / productDetailsController.productModel.value.data!.ratingStarCount!.toInt()}'),
-                                          itemSize: 11.h,
+                                          itemSize: 15.h,
                                           unratedColor: AppColor.inactiveColor,
                                           itemBuilder: (context, index) =>
                                               Container(
@@ -546,12 +546,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     )
                                   ],
                                 ),
-                                SizedBox(height: 15.h),
+                                SizedBox(height: 7.h),
                                 Divider(
                                   height: 1.h,
                                   color: const Color(0xFFEFF0F6),
                                 ),
-                                SizedBox(height: 15.h),
+                                SizedBox(height: 7.h),
                                 productDetailsController.initialIndex.value ==
                                             -1 &&
                                         productDetailsController
@@ -765,7 +765,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                 .value
                                                                 .data!
                                                                 .isNotEmpty
-                                                        ? SizedBox(height: 24.h)
+                                                        ? SizedBox(height: 8.h)
                                                         : const SizedBox(),
                                                   ],
                                                 )

@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "308737311204",
-    "project_id": "shopperz-fe4ea",
-    "storage_bucket": "shopperz-fe4ea.appspot.com"
+    "project_number": "679998278497",
+    "project_id": "shopking-77bb7",
+    "storage_bucket": "shopking-77bb7.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:308737311204:android:965ddad00da4bad01bc7f1",
+        "mobilesdk_app_id": "1:679998278497:android:9dfd5d627747965f2d9320",
         "android_client_info": {
-          "package_name": "com.inilabs.shopking"
+          "package_name": "com.shopking.user"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCShj14p-bc1hbJaI9zObRYurP8ffpoVcM"
+          "current_key": "AIzaSyDu05f8WpeAxXlh1p2xIq9BANl3OXZznk4"
         }
       ],
       "services": {

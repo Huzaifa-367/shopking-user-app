@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCShj14p-bc1hbJaI9zObRYurP8ffpoVcM',
-    appId: '1:308737311204:android:965ddad00da4bad01bc7f1',
-    messagingSenderId: '308737311204',
-    projectId: 'shopperz-fe4ea',
-    storageBucket: 'shopperz-fe4ea.appspot.com',
+    apiKey: 'AIzaSyDz0-e2QhqWy8AQ6hQG70oxjHrJCisR9-k',
+    appId: '1:679998278497:android:9dfd5d627747965f2d9320',
+    messagingSenderId: 'G-ZS4VNP9ZH0',
+    projectId: 'shopking-77bb7',
+    storageBucket: 'shopking-77bb7.appspot.com',
   );
 
+  /// IOS Needs Configue
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyABoypBa2lw750AVUHjNg0Y7HXyqskrgc0',
-    appId: '1:308737311204:ios:836ee2a148ab62701bc7f1',
-    messagingSenderId: '308737311204',
-    projectId: 'shopperz-fe4ea',
-    storageBucket: 'shopperz-fe4ea.appspot.com',
-    iosBundleId: 'com.inilabs.shopking',
+    appId: '1:G-ZS4VNP9ZH0:ios:836ee2a148ab62701bc7f1',
+    messagingSenderId: 'G-ZS4VNP9ZH0',
+    projectId: 'shopking-77bb7',
+    storageBucket: 'shopking-77bb7.appspot.com',
+    iosBundleId: 'com.shopking.user',
   );
 }

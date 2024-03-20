@@ -152,7 +152,7 @@ class DetailsView extends StatelessWidget {
             productDetailsController.productModel.value.data?.details == '' ||
                     productDetailsController.productModel.value.data?.details ==
                         null
-                ? SizedBox()
+                ? const SizedBox()
                 : Html(
                     data: productDetailsController
                         .productModel.value.data?.details,
@@ -218,12 +218,23 @@ class _VideosViewState extends State<VideosView> {
             productDetailsController.productModel.value.data!.videos!.isEmpty ||
                     productDetailsController.productModel.value.data?.videos ==
                         null
-                ? SizedBox()
+                ? Center(
+                    child: Container(
+                      height: 200.h,
+                      width: 200,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/empty.gif"),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                  )
                 : ListView.builder(
                     itemCount: productDetailsController
                         .productModel.value.data!.videos!.length,
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       controllerWeb = WebViewController()
                         ..setJavaScriptMode(JavaScriptMode.unrestricted)
@@ -236,7 +247,7 @@ class _VideosViewState extends State<VideosView> {
                             height: 165.h,
                             width: double.infinity,
                             decoration:
-                                BoxDecoration(color: AppColor.whiteColor),
+                                const BoxDecoration(color: AppColor.whiteColor),
                             child: WebViewWidget(
                               controller: controllerWeb,
                             ),
@@ -251,7 +262,7 @@ class _VideosViewState extends State<VideosView> {
 }
 
 class ReviewView extends StatefulWidget {
-  ReviewView({
+  const ReviewView({
     super.key,
     this.productModel,
     this.sectionModel,
@@ -337,17 +348,28 @@ class _ReviewViewState extends State<ReviewView> {
                             productDetailsController
                                     .productModel.value.data!.reviews ==
                                 null
-                        ? SizedBox()
+                        ? Center(
+                            child: Container(
+                              height: 200.h,
+                              width: 200,
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage("assets/images/empty.gif"),
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            ),
+                          )
                         : ListView.builder(
                             itemCount: productDetailsController
                                 .productModel.value.data!.reviews!.length,
                             shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: EdgeInsets.only(bottom: 16.h),
                                 child: Container(
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                         color: AppColor.whiteColor),
                                     child: Container(
                                       child: Column(
@@ -421,14 +443,13 @@ class _ReviewViewState extends State<ReviewView> {
                                                               .images ==
                                                           null ||
                                                   productDetailsController
-                                                          .productModel
-                                                          .value
-                                                          .data!
-                                                          .reviews![index]
-                                                          .images!
-                                                          .length <
-                                                      1
-                                              ? SizedBox()
+                                                      .productModel
+                                                      .value
+                                                      .data!
+                                                      .reviews![index]
+                                                      .images!
+                                                      .isEmpty
+                                              ? const SizedBox()
                                               : SizedBox(
                                                   height: 16.h,
                                                 ),
@@ -447,14 +468,13 @@ class _ReviewViewState extends State<ReviewView> {
                                                               .images ==
                                                           null ||
                                                   productDetailsController
-                                                          .productModel
-                                                          .value
-                                                          .data!
-                                                          .reviews![index]
-                                                          .images!
-                                                          .length <
-                                                      1
-                                              ? SizedBox()
+                                                      .productModel
+                                                      .value
+                                                      .data!
+                                                      .reviews![index]
+                                                      .images!
+                                                      .isEmpty
+                                              ? const SizedBox()
                                               : SizedBox(
                                                   height: 52.h,
                                                   child: ListView.builder(
@@ -530,7 +550,7 @@ class _ReviewViewState extends State<ReviewView> {
                         ? SizedBox(
                             height: 10.h,
                           )
-                        : SizedBox(),
+                        : const SizedBox(),
                     productDetailsController
                                 .productModel.value.data!.reviews!.length <
                             productDetailsController
@@ -560,12 +580,12 @@ class _ReviewViewState extends State<ReviewView> {
                                   size: 16.sp,
                                   weight: FontWeight.w500,
                                 )))
-                        : SizedBox()
+                        : const SizedBox()
                   ],
                 ),
               ),
             )
-          : SizedBox(),
+          : const SizedBox(),
     );
   }
 }
@@ -599,7 +619,18 @@ class ShippingReturnView extends StatelessWidget {
                     productDetailsController
                             .productModel.value.data?.shippingAndReturn ==
                         null
-                ? SizedBox()
+                ? Center(
+                    child: Container(
+                      height: 200.h,
+                      width: 200,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/empty.gif"),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                  )
                 : Html(
                     data: productDetailsController
                         .productModel.value.data?.shippingAndReturn,

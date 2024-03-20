@@ -229,9 +229,10 @@ class _CategoryWiseProductScreenState extends State<CategoryWiseProductScreen> {
                                     if (i ==
                                         cateWiseProductController
                                             .categoryWiseProductList.length) {
-                                      return ProductShimmer(
-                                        count: 6,
-                                      );
+                                      return const SizedBox.shrink();
+                                      // return ProductShimmer(
+                                      //   count: 6,
+                                      // );
                                     }
                                     return GestureDetector(
                                       onTap: () {

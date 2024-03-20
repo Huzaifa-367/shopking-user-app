@@ -15,6 +15,7 @@ class ProductDetailsShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Shimmer.fromColors(
           baseColor: Colors.grey[200]!,
@@ -30,7 +31,6 @@ class ProductDetailsShimmer extends StatelessWidget {
           ),
         ),
         SizedBox(height: 10.h),
-
         SizedBox(
           height: 80.h,
           child: ListView.builder(
@@ -54,7 +54,6 @@ class ProductDetailsShimmer extends StatelessWidget {
           ),
         ),
         SizedBox(height: 20.h),
-
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -65,8 +64,11 @@ class ProductDetailsShimmer extends StatelessWidget {
                   highlightColor: Colors.grey[300]!,
                   child: Container(
                     height: 20.h,
-                    width: 100.w,
-                    color: Colors.white,
+                    width: 250.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16.r),
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],
@@ -80,7 +82,10 @@ class ProductDetailsShimmer extends StatelessWidget {
                   child: Container(
                     height: 20.h,
                     width: 100.w,
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16.r),
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 SizedBox(width: 16.w),
@@ -90,7 +95,10 @@ class ProductDetailsShimmer extends StatelessWidget {
                   child: Container(
                     height: 20.h,
                     width: 100.w,
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16.r),
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],
@@ -103,7 +111,7 @@ class ProductDetailsShimmer extends StatelessWidget {
                   highlightColor: Colors.grey[300]!,
                   child: RatingBarIndicator(
                     rating: 5,
-                    itemSize: 10.h,
+                    itemSize: 15.h,
                     itemBuilder: (context, index) => Container(
                       margin: EdgeInsets.symmetric(horizontal: 1.w),
                       child: SvgPicture.asset(
@@ -124,7 +132,10 @@ class ProductDetailsShimmer extends StatelessWidget {
                         child: Container(
                           height: 20.h,
                           width: 100.w,
-                          color: Colors.white,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.r),
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ],
@@ -140,14 +151,16 @@ class ProductDetailsShimmer extends StatelessWidget {
           color: const Color(0xFFEFF0F6),
         ),
         SizedBox(height: 15.h),
-
         Shimmer.fromColors(
           baseColor: Colors.grey[200]!,
           highlightColor: Colors.grey[300]!,
           child: Container(
             height: 20.h,
             width: 100.w,
-            color: Colors.white,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16.r),
+              color: Colors.white,
+            ),
           ),
         ),
         SizedBox(height: 8.h),
@@ -173,14 +186,16 @@ class ProductDetailsShimmer extends StatelessWidget {
               }),
         ),
         SizedBox(height: 24.h),
-
         Shimmer.fromColors(
           baseColor: Colors.grey[200]!,
           highlightColor: Colors.grey[300]!,
           child: Container(
             height: 20.h,
             width: 100.w,
-            color: Colors.white,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16.r),
+              color: Colors.white,
+            ),
           ),
         ),
         SizedBox(height: 8.h),
@@ -208,40 +223,46 @@ class ProductDetailsShimmer extends StatelessWidget {
               }),
         ),
         SizedBox(height: 24.h),
-
         Shimmer.fromColors(
           baseColor: Colors.grey[200]!,
           highlightColor: Colors.grey[300]!,
           child: Container(
             height: 20.h,
             width: 100.w,
-            color: Colors.white,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16.r),
+              color: Colors.white,
+            ),
           ),
         ),
         SizedBox(height: 8.h),
-        Shimmer.fromColors(
-          baseColor: Colors.grey[200]!,
-          highlightColor: Colors.grey[300]!,
-          child: Container(
-            width: 99.w,
-            height: 36.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.r),
-              color: Colors.white,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SvgPicture.asset(SvgIcon.decrement),
-                CustomText(text: "", size: 18.sp, weight: FontWeight.w600),
-                SvgPicture.asset(SvgIcon.increment)
-              ],
-            ),
+        Container(
+          width: 99.w,
+          height: 36.h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.r),
+            color: Colors.grey[200]!,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Shimmer.fromColors(
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[200]!,
+                child: SvgPicture.asset(
+                  SvgIcon.decrement,
+                ),
+              ),
+              CustomText(text: "", size: 18.sp, weight: FontWeight.w600),
+              Shimmer.fromColors(
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[200]!,
+                child: SvgPicture.asset(SvgIcon.increment),
+              ),
+            ],
           ),
         ),
-
         SizedBox(height: 32.h),
-
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

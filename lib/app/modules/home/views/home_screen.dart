@@ -157,13 +157,15 @@ class HomeScreen extends StatelessWidget {
                       const PromotionBanner()
                     ],
                   ),
-                  SizedBox(height: 32.h),
+                  SizedBox(height: 22.h),
                   SizedBox(
                     child: Obx(() {
                       return productSectionController
                                   .productSection.value.data ==
                               null
-                          ? ProductShimmer()
+                          ? ProductShimmer(
+                              onlyContainer: true,
+                            )
                           : productSectionController
                                   .productSection.value.data!.isNotEmpty
                               ? ListView.builder(
@@ -323,7 +325,9 @@ class HomeScreen extends StatelessWidget {
                   Obx(
                     () => popularProductController.popularModel.value.data ==
                             null
-                        ? ProductShimmer()
+                        ? ProductShimmer(
+                            onlyContainer: true,
+                          )
                         : popularProductController
                                 .popularModel.value.data!.isNotEmpty
                             ? Padding(
@@ -493,7 +497,9 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: 34.h),
                   Obx(
                     () => flashSaleController.flashSaleModel.value.data == null
-                        ? ProductShimmer()
+                        ? ProductShimmer(
+                            onlyContainer: true,
+                          )
                         : flashSaleController
                                 .flashSaleModel.value.data!.isNotEmpty
                             ? Padding(

@@ -62,7 +62,6 @@ class _SignInScreenState extends State<SignInScreen> {
     } else {
       mark = false;
     }
-    authController.countryCode = '+92';
   }
 
   @override
