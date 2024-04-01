@@ -187,7 +187,7 @@ class _CategoryWiseProductScreenState extends State<CategoryWiseProductScreen> {
                 },
                 child: Obx(
                   () => cateWiseProductController
-                          .categoryWiseProductList.isNotEmpty
+                          .categoryWiseProductList.isEmpty
                       ? Padding(
                           padding: EdgeInsets.all(16.r),
                           child: ProductShimmer(

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -101,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 16.h,
+                        height: 5.h,
                       ),
                       Column(
                         children: [
@@ -112,8 +114,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       alignment: Alignment.center,
                                       children: [
                                         Container(
-                                          height: 74.r,
-                                          width: 74.r,
+                                          height: 100.r,
+                                          width: 100.r,
                                           decoration: BoxDecoration(
                                             color: AppColor.whiteColor,
                                             borderRadius:
@@ -121,7 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           ),
                                           child: ClipRRect(
                                             borderRadius:
-                                                BorderRadius.circular(74.r),
+                                                BorderRadius.circular(100.r),
                                             child: profile.profileMap.isNotEmpty
                                                 ? CachedNetworkImage(
                                                     imageUrl: profile
@@ -169,6 +171,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                         Positioned(
                                           bottom: -12.h,
+                                          right: 0,
                                           child: InkWell(
                                             onTap: () {
                                               profile.getImageFromGallary();
@@ -177,7 +180,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               height: 32.r,
                                               width: 32.r,
                                               decoration: BoxDecoration(
-                                                  color: AppColor.textColor,
+                                                  color: AppColor.redColor,
                                                   border: Border.all(
                                                       color:
                                                           AppColor.whiteColor,
@@ -188,10 +191,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               child: Center(
                                                 child: SvgPicture.asset(
                                                   SvgIcon.menuEdit,
-                                                  colorFilter:
-                                                      const ColorFilter.mode(
-                                                          AppColor.whiteColor,
-                                                          BlendMode.dst),
+                                                  color: AppColor.whiteColor,
+                                                  // colorFilter:
+                                                  //     const ColorFilter.mode(
+                                                  //   AppColor.whiteColor,
+                                                  //   BlendMode.dst,
+                                                  // ),
                                                   height: 16.h,
                                                   width: 16.w,
                                                 ),
@@ -465,11 +470,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     return Column(
                                       children: [
                                         profileItem(
-                                            profile.pagesModel!.data![index]
-                                                .description,
-                                            SvgIcon.tc,
-                                            profile.pagesModel!.data![index]
-                                                .title),
+                                          profile.pagesModel!.data![index]
+                                              .description,
+                                          SvgIcon.tc,
+                                          profile
+                                              .pagesModel!.data![index].title,
+                                        ),
                                         const DeviderWidget(),
                                       ],
                                     );
@@ -523,6 +529,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               SvgPicture.asset(
                 '$icon',
+                color: AppColor.error,
                 height: 20.h,
                 width: 20.w,
               ),

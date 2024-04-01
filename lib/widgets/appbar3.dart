@@ -16,10 +16,10 @@ class AppBarWidget3 extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: AppColor.primaryBackgroundColor,
       elevation: 0,
-      toolbarHeight: 48.h,
+      toolbarHeight: 40.h,
       leadingWidth: double.infinity,
       leading: Padding(
-        padding: EdgeInsets.only(left: 8.w,top: 8.h),
+        padding: EdgeInsets.only(left: 8.w, top: 8.h),
         child: Row(
           children: [
             InkWell(

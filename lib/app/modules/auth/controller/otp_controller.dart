@@ -1,14 +1,10 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:shopperz/app/modules/auth/controller/auth_controler.dart';
 import 'package:shopperz/app/modules/auth/models/user_model.dart';
 import 'package:shopperz/app/modules/auth/views/reset_password.dart';
-import 'package:shopperz/app/modules/navbar/views/navbar_view.dart';
 import 'package:shopperz/config/theme/app_color.dart';
-import 'package:shopperz/main.dart';
 import 'package:shopperz/widgets/custom_snackbar.dart';
-
 import '../../../../data/server/app_server.dart';
 import '../../../../utils/api_list.dart';
 
@@ -35,11 +31,6 @@ class OTPController extends GetxController {
             name: authController.nameController.text,
             email: email,
             password: authController.passController.text);
-
-        final token = jsonDecode(resonse.body)["token"];
-        box.write("token", 'Bearer $token');
-        box.write("isLogedIn", true);
-        Get.offAll(() => const NavBarView());
       } else {
         isLoading(false);
         customSnackbar("ERROR".tr,
@@ -71,11 +62,6 @@ class OTPController extends GetxController {
             phone: authController.phoneController.text,
             countryCode: authController.countryCode,
             password: authController.passController.text);
-
-        final token = jsonDecode(resonse.body)["token"];
-        box.write("token", 'Bearer $token');
-        box.write("isLogedIn", true);
-        Get.offAll(() => const NavBarView());
       } else {
         isLoading(false);
         customSnackbar("ERROR".tr,

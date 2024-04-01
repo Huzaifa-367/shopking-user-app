@@ -10,7 +10,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 class PagesScreen extends StatefulWidget {
   final String? tittle;
   final String? description;
-  PagesScreen({Key? key, this.tittle, this.description}) : super(key: key);
+  const PagesScreen({super.key, this.tittle, this.description});
   @override
   State<PagesScreen> createState() => _PagesScreenState();
 }
@@ -37,7 +37,9 @@ class _PagesScreenState extends State<PagesScreen> {
         appBar: AppBarWidget3(text: widget.tittle),
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.only(left: 16.w, right: 16.w),
+            padding: EdgeInsets.symmetric(
+              horizontal: 10.w,
+            ),
             child: Column(
               children: [
                 Html(data: widget.description),

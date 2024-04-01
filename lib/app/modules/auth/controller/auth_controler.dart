@@ -304,13 +304,16 @@ class AuthController extends GetxController {
         "email": email,
         "password": password,
       });
-
       if (response.statusCode == 200) {
         isLoading(false);
+        final token = jsonDecode(response.body)["token"];
+        box.write("token", 'Bearer $token');
+        box.write("isLogedIn", true);
         customSnackbar(
             "SUCCESS".tr,
             jsonDecode(response.body)["message"].toString().tr,
             AppColor.success);
+        Get.offAll(() => const NavBarView());
       } else {
         isLoading(false);
         customSnackbar("ERROR".tr,
@@ -381,6 +384,10 @@ class AuthController extends GetxController {
 
       if (response.statusCode == 200) {
         isLoading(false);
+        final token = jsonDecode(response.body)["token"];
+        box.write("token", 'Bearer $token');
+        box.write("isLogedIn", true);
+        Get.offAll(() => const NavBarView());
         customSnackbar(
             "SUCCESS".tr,
             jsonDecode(response.body)["message"].toString().tr,
