@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:shopperz/app/modules/home/model/product_section.dart';
+import 'package:shopperz/app/modules/product_details/model/Product_model.dart';
 import 'package:shopperz/main.dart';
 
 import '../../../../data/server/app_server.dart';
@@ -10,7 +12,7 @@ import '../model/popular_product.dart';
 class AllPopularControler extends GetxController {
   ScrollController scrollController = ScrollController();
   final popularModel = PopularProduct().obs;
-  final popularList = <Datum>[].obs;
+  final popularList = <Product>[].obs;
 
   int paginate = 1;
   int page = 1;

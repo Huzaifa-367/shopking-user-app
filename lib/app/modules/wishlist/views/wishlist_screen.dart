@@ -230,6 +230,11 @@ class _WishlistScreenState extends State<WishlistScreen> {
                                                   .value
                                                   .data?[i]
                                                   .ratingStarCount,
+                                              offer_end_date: wishlistController
+                                                  .favoriteModel
+                                                  .value
+                                                  .data?[i]
+                                                  .offer_end_date,
                                             ),
                                           ),
                                         ),

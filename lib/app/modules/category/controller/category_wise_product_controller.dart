@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopperz/app/modules/product_details/model/Product_model.dart';
 import 'package:shopperz/data/remote_services/remote_services.dart';
 
 import '../model/category_wise_product.dart';
@@ -28,11 +29,11 @@ class CategoryWiseProductController extends GetxController {
     sortBy,
     minPrice,
     maxPrice,
-    String? name, 
+    String? name,
     variatons,
   }) async {
     isLaoding(true);
-    final data = await RemoteServices().fetchCategoryWiseProduct( 
+    final data = await RemoteServices().fetchCategoryWiseProduct(
       category: categorySlug,
       brands: brands,
       sortBy: sortBy,
@@ -50,29 +51,28 @@ class CategoryWiseProductController extends GetxController {
 
       if (page.value < lastPage.value) {
         hasMoreData = true;
-      }
-      else if (page.value == lastPage.value) {
+      } else if (page.value == lastPage.value) {
         hasMoreData = false;
       } else {
         hasMoreData = false;
       }
 
       categoryWiseProductList.value += categoryWiseProduct.data!.products!;
-      
     });
   }
 
-  void loadMoreData({required String categorySlug,}) {
+  void loadMoreData({
+    required String categorySlug,
+  }) {
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
         if (hasMoreData) {
-            page.value++;
+          page.value++;
           fetchCategoryWiseProduct(
-          categorySlug: categorySlug,
-        );
+            categorySlug: categorySlug,
+          );
         }
-        
       }
     });
   }

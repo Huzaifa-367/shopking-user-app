@@ -10,20 +10,13 @@ import 'package:shopperz/app/modules/auth/controller/auth_controler.dart';
 import 'package:shopperz/app/modules/auth/views/sign_in.dart';
 import 'package:shopperz/app/modules/cart/controller/cart_controller.dart';
 import 'package:shopperz/app/modules/category/controller/category_wise_product_controller.dart';
-import 'package:shopperz/app/modules/category/model/category_wise_product.dart'
-    as category_product;
-import 'package:shopperz/app/modules/home/model/product_section.dart'
-    as section_product;
-import 'package:shopperz/app/modules/home/model/popular_product.dart'
-    as Product;
+import 'package:shopperz/app/modules/home/model/product_section.dart';
 import 'package:shopperz/app/modules/navbar/controller/navbar_controller.dart';
 import 'package:shopperz/app/modules/navbar/views/navbar_view.dart';
 import 'package:shopperz/app/modules/product/widgets/product.dart';
 import 'package:shopperz/app/modules/product_details/controller/product_details_controller.dart';
-import 'package:shopperz/app/modules/product_details/model/related_product.dart';
-import 'package:shopperz/app/modules/search/model/all_product.dart';
+import 'package:shopperz/app/modules/product_details/model/Product_model.dart';
 import 'package:shopperz/app/modules/wishlist/controller/wishlist_controller.dart';
-import 'package:shopperz/app/modules/wishlist/model/fav_model.dart';
 import 'package:shopperz/main.dart';
 import 'package:shopperz/widgets/custom_snackbar.dart';
 import 'package:shopperz/widgets/custom_tabbar.dart';
@@ -48,14 +41,14 @@ class ProductDetailsScreen extends StatefulWidget {
       this.relatedProduct,
       this.product,
       this.individualProduct});
-  final category_product.Product? categoryWiseProduct;
-  final section_product.Product? productModel;
-  final section_product.Datum? sectionModel;
-  final Datum? allProductModel;
-  final FavoriteItem? favoriteItem;
-  final RelatedProduct? relatedProduct;
-  final Product.Datum? product;
-  final Product.Datum? individualProduct;
+  final Product? categoryWiseProduct;
+  final Product? productModel;
+  final DatumSection? sectionModel;
+  final Product? allProductModel;
+  final Product? favoriteItem;
+  final Product? relatedProduct;
+  final Product? product;
+  final Product? individualProduct;
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -2516,6 +2509,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                         .value
                                                         .data![i]
                                                         .isOffer!,
+                                                offer_end_date:
+                                                    productDetailsController
+                                                        .relatedProductModel
+                                                        .value
+                                                        .data![i]
+                                                        .offer_end_date,
                                               ),
                                             SizedBox(height: 12.h),
                                           ],

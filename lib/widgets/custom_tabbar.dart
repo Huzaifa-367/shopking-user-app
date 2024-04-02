@@ -5,16 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shopperz/app/modules/product_details/controller/product_details_controller.dart';
-import 'package:shopperz/app/modules/product_details/model/related_product.dart';
-import 'package:shopperz/app/modules/wishlist/model/fav_model.dart';
+import 'package:shopperz/app/modules/product_details/model/Product_model.dart';
 import 'package:shopperz/config/theme/app_color.dart';
 import 'package:shopperz/utils/svg_icon.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:shopperz/app/modules/category/model/category_wise_product.dart'
-    as category_product;
-import 'package:shopperz/app/modules/home/model/product_section.dart'
-    as section_product;
-import '../app/modules/search/model/all_product.dart';
+import '../app/modules/home/model/product_section.dart';
 import 'custom_text.dart';
 
 class CustomTabBar extends StatefulWidget {
@@ -27,12 +22,12 @@ class CustomTabBar extends StatefulWidget {
     this.favoriteItem,
     this.relatedProduct,
   });
-  final category_product.Product? categoryWiseProduct;
-  final section_product.Product? productModel;
-  final section_product.Datum? sectionModel;
-  final Datum? allProductModel;
-  final FavoriteItem? favoriteItem;
-  final RelatedProduct? relatedProduct;
+  final Product? categoryWiseProduct;
+  final Product? productModel;
+  final DatumSection? sectionModel;
+  final Product? allProductModel;
+  final Product? favoriteItem;
+  final Product? relatedProduct;
 
   @override
   State<CustomTabBar> createState() => _CustomTabBarState();
@@ -137,7 +132,7 @@ class DetailsView extends StatelessWidget {
     return Container(
       width: 328.w,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(10.r),
         border: Border.all(color: AppColor.grayColor),
       ),
       child: Padding(
@@ -200,7 +195,7 @@ class _VideosViewState extends State<VideosView> {
     return Container(
       width: 328.w,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(10.r),
         border: Border.all(color: AppColor.grayColor),
       ),
       child: Padding(
@@ -271,18 +266,46 @@ class ReviewView extends StatefulWidget {
     this.favoriteItem,
     this.relatedProduct,
   });
-  final category_product.Product? categoryWiseProduct;
-  final section_product.Product? productModel;
-  final section_product.Datum? sectionModel;
-  final Datum? allProductModel;
-  final FavoriteItem? favoriteItem;
-  final RelatedProduct? relatedProduct;
+  final Product? categoryWiseProduct;
+  final Product? productModel;
+  final DatumSection? sectionModel;
+  final Product? allProductModel;
+  final Product? favoriteItem;
+  final Product? relatedProduct;
 
   @override
   State<ReviewView> createState() => _ReviewViewState();
 }
 
 class _ReviewViewState extends State<ReviewView> {
+  String calculateTimeDifference(String? dateString) {
+    if (dateString == null) return '';
+    DateTime dateTime = DateTime.parse(dateString);
+    Duration difference = DateTime.now().difference(dateTime);
+    int days = difference.inDays;
+    int weeks = (days / 7).floor();
+    int months = (weeks / 4.345).floor();
+    int years = (months / 12).floor();
+    if (years > 0) {
+      return '$years ${years == 1 ? 'year' : 'years'} ago';
+    } else if (months > 0) {
+      return '$months ${months == 1 ? 'month' : 'months'} ago';
+    } else if (weeks > 0) {
+      return '$weeks ${weeks == 1 ? 'week' : 'weeks'} ago';
+    } else {
+      return '$days ${days == 1 ? 'day' : 'days'} ago';
+    }
+  }
+
+  String getUsername(String? userName) {
+    if (userName == null) return '';
+    List<String> parts = userName.split(' ');
+    String firstName = parts[0];
+    String nameIndex = parts.length > 1 ? "$firstName ${parts[1][0]}..." : '';
+
+    return nameIndex;
+  }
+
   @override
   Widget build(BuildContext context) {
     final productDetailsController = Get.put(ProductDetailsController());
@@ -292,7 +315,7 @@ class _ReviewViewState extends State<ReviewView> {
               width: 328.w,
               decoration: BoxDecoration(
                 color: AppColor.whiteColor,
-                borderRadius: BorderRadius.circular(16.r),
+                borderRadius: BorderRadius.circular(10.r),
                 border: Border.all(color: AppColor.grayColor),
               ),
               child: Padding(
@@ -369,27 +392,14 @@ class _ReviewViewState extends State<ReviewView> {
                               return Padding(
                                 padding: EdgeInsets.only(bottom: 16.h),
                                 child: Container(
-                                    decoration: const BoxDecoration(
-                                        color: AppColor.whiteColor),
-                                    child: Container(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                  decoration: const BoxDecoration(
+                                      color: AppColor.whiteColor),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
                                         children: [
-                                          CustomText(
-                                            text: productDetailsController
-                                                .productModel
-                                                .value
-                                                .data!
-                                                .reviews?[index]
-                                                .name
-                                                .toString(),
-                                            size: 18.sp,
-                                            weight: FontWeight.w600,
-                                          ),
-                                          SizedBox(
-                                            height: 10.h,
-                                          ),
                                           RatingBarIndicator(
                                             rating: double.parse(
                                                 productDetailsController
@@ -414,107 +424,143 @@ class _ReviewViewState extends State<ReviewView> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(
-                                            height: 16.h,
-                                          ),
+                                          const SizedBox(width: 5),
                                           CustomText(
-                                            text: productDetailsController
-                                                .productModel
-                                                .value
-                                                .data!
-                                                .reviews?[index]
-                                                .review
-                                                .toString(),
-                                            size: 14.sp,
-                                            weight: FontWeight.w400,
+                                            text: getUsername(
+                                              productDetailsController
+                                                  .productModel
+                                                  .value
+                                                  .data!
+                                                  .reviews?[index]
+                                                  .name
+                                                  .toString(),
+                                            ),
+                                            size: 12.sp,
+                                            weight: FontWeight.w600,
                                           ),
-                                          productDetailsController
-                                                          .productModel
-                                                          .value
-                                                          .data!
-                                                          .reviews![index]
-                                                          .images!
-                                                          .isEmpty &&
-                                                      productDetailsController
-                                                              .productModel
-                                                              .value
-                                                              .data!
-                                                              .reviews?[index]
-                                                              .images ==
-                                                          null ||
-                                                  productDetailsController
+                                          const Spacer(),
+                                          CustomText(
+                                            text: calculateTimeDifference(
+                                              productDetailsController
+                                                  .productModel
+                                                  .value
+                                                  .data!
+                                                  .reviews?[index]
+                                                  .updated_at
+                                                  .toString(),
+                                            ),
+                                            size: 12.sp,
+                                            weight: FontWeight.w500,
+                                            color: AppColor.textColor1,
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      CustomText(
+                                        text: productDetailsController
+                                            .productModel
+                                            .value
+                                            .data!
+                                            .reviews?[index]
+                                            .review
+                                            .toString(),
+                                        size: 14.sp,
+                                        weight: FontWeight.w400,
+                                      ),
+                                      productDetailsController
                                                       .productModel
                                                       .value
                                                       .data!
                                                       .reviews![index]
                                                       .images!
-                                                      .isEmpty
-                                              ? const SizedBox()
-                                              : SizedBox(
-                                                  height: 16.h,
-                                                ),
-                                          productDetailsController
+                                                      .isEmpty &&
+                                                  productDetailsController
                                                           .productModel
                                                           .value
                                                           .data!
-                                                          .reviews![index]
-                                                          .images!
-                                                          .isEmpty &&
-                                                      productDetailsController
-                                                              .productModel
-                                                              .value
-                                                              .data!
-                                                              .reviews?[index]
-                                                              .images ==
-                                                          null ||
-                                                  productDetailsController
+                                                          .reviews?[index]
+                                                          .images ==
+                                                      null ||
+                                              productDetailsController
+                                                  .productModel
+                                                  .value
+                                                  .data!
+                                                  .reviews![index]
+                                                  .images!
+                                                  .isEmpty
+                                          ? const SizedBox()
+                                          : SizedBox(
+                                              height: 16.h,
+                                            ),
+                                      productDetailsController
                                                       .productModel
                                                       .value
                                                       .data!
                                                       .reviews![index]
                                                       .images!
-                                                      .isEmpty
-                                              ? const SizedBox()
-                                              : SizedBox(
-                                                  height: 52.h,
-                                                  child: ListView.builder(
-                                                    shrinkWrap: true,
-                                                    scrollDirection:
-                                                        Axis.horizontal,
-                                                    itemCount:
-                                                        productDetailsController
-                                                            .productModel
-                                                            .value
-                                                            .data!
-                                                            .reviews?[index]
-                                                            .images!
-                                                            .length,
-                                                    itemBuilder: (context, i) {
-                                                      return Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                right: 10.w),
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            Get.dialog(Dialog(
-                                                              child: Image.network(
-                                                                  productDetailsController
-                                                                      .productModel
-                                                                      .value
-                                                                      .data!
-                                                                      .reviews![
-                                                                          index]
-                                                                      .images![
-                                                                          i]
-                                                                      .toString()),
-                                                            ));
-                                                          },
-                                                          child: Container(
-                                                            height: 52.h,
-                                                            width: 52.w,
-                                                            decoration: BoxDecoration(
+                                                      .isEmpty &&
+                                                  productDetailsController
+                                                          .productModel
+                                                          .value
+                                                          .data!
+                                                          .reviews?[index]
+                                                          .images ==
+                                                      null ||
+                                              productDetailsController
+                                                  .productModel
+                                                  .value
+                                                  .data!
+                                                  .reviews![index]
+                                                  .images!
+                                                  .isEmpty
+                                          ? const SizedBox()
+                                          : SizedBox(
+                                              height: 52.h,
+                                              child: ListView.builder(
+                                                shrinkWrap: true,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount:
+                                                    productDetailsController
+                                                        .productModel
+                                                        .value
+                                                        .data!
+                                                        .reviews?[index]
+                                                        .images!
+                                                        .length,
+                                                itemBuilder: (context, i) {
+                                                  return Padding(
+                                                    padding: EdgeInsets.only(
+                                                        right: 10.w),
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        Get.dialog(Dialog(
+                                                          child: Image.network(
+                                                              productDetailsController
+                                                                  .productModel
+                                                                  .value
+                                                                  .data!
+                                                                  .reviews![
+                                                                      index]
+                                                                  .images![i]
+                                                                  .toString()),
+                                                        ));
+                                                      },
+                                                      child: Container(
+                                                        height: 52.h,
+                                                        width: 52.w,
+                                                        decoration:
+                                                            BoxDecoration(
                                                                 color: AppColor
                                                                     .whiteColor,
+                                                                border:
+                                                                    Border.all(
+                                                                  width: 1,
+                                                                  color: AppColor
+                                                                      .grayColor,
+                                                                ),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(8
@@ -531,14 +577,19 @@ class _ReviewViewState extends State<ReviewView> {
                                                                         .toString()),
                                                                     fit: BoxFit
                                                                         .cover)),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                  ))
-                                        ],
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              )),
+                                      SizedBox(height: 15.h),
+                                      Divider(
+                                        height: 1.h,
+                                        color: const Color(0xFFEFF0F6),
                                       ),
-                                    )),
+                                    ],
+                                  ),
+                                ),
                               );
                             },
                           ),
@@ -558,9 +609,10 @@ class _ReviewViewState extends State<ReviewView> {
                                 .toInt()
                         ? Center(
                             child: InkWell(
-                                onTap: () {
-                                  print('tapped');
-                                  setState(() {
+                              onTap: () {
+                                print('tapped');
+                                setState(
+                                  () {
                                     productDetailsController
                                         .reviewLimit.value++;
                                     productDetailsController
@@ -572,14 +624,17 @@ class _ReviewViewState extends State<ReviewView> {
                                                 widget.favoriteItem?.slug ??
                                                 widget.relatedProduct?.slug ??
                                                 "");
-                                  });
-                                },
-                                child: CustomText(
-                                  text: 'Read More',
-                                  color: AppColor.primaryColor,
-                                  size: 16.sp,
-                                  weight: FontWeight.w500,
-                                )))
+                                  },
+                                );
+                              },
+                              child: CustomText(
+                                text: 'Read More',
+                                color: AppColor.primaryColor,
+                                size: 16.sp,
+                                weight: FontWeight.w500,
+                              ),
+                            ),
+                          )
                         : const SizedBox()
                   ],
                 ),
@@ -601,7 +656,7 @@ class ShippingReturnView extends StatelessWidget {
     return Container(
       width: 328.w,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(10.r),
         border: Border.all(color: AppColor.grayColor),
       ),
       child: Padding(

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'dart:convert';
 import 'dart:core';
 
@@ -126,7 +128,7 @@ class RemoteServices {
 
   Future<Either<String, ProductSectionModel>> fetchProductSection() async {
     final response = await server.getRequest(
-        endPoint: ApiList.productSection + '?order_type=asc&status=5',
+        endPoint: '${ApiList.productSection}?order_type=asc&status=5',
         headers: box.read('isLogedIn') == false
             ? AppServer.getAuthHeaders()
             : AppServer.getHttpHeadersWithToken());
@@ -203,9 +205,8 @@ class RemoteServices {
   Future<Either<String, ProductModel>> fetchProductDetails(
       {required String slug, required int reviewLimit}) async {
     final response = await server.getRequest(
-        endPoint: ApiList.productDetails +
-            slug +
-            '?slug=$slug&review_limit=$reviewLimit',
+        endPoint:
+            '${ApiList.productDetails}$slug?slug=$slug&review_limit=$reviewLimit',
         headers: box.read('isLogedIn') == false
             ? AppServer.getAuthHeaders()
             : AppServer.getHttpHeadersWithToken());

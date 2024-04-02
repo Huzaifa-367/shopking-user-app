@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:shopperz/app/modules/product_details/model/Product_model.dart';
 import 'package:shopperz/data/server/app_server.dart';
 import 'package:shopperz/main.dart';
 
@@ -11,7 +12,7 @@ import '../model/popular_product.dart';
 class AllFlashController extends GetxController {
   ScrollController scrollController = ScrollController();
   final flashSaleModel = PopularProduct().obs;
-  final flashSaleList = <Datum>[].obs;
+  final flashSaleList = <Product>[].obs;
   int paginate = 1;
   int page = 1;
   int itemPerPage = 8;

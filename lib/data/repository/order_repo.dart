@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:dio/dio.dart';
 import 'package:shopperz/data/model/order_details_model.dart';
 import 'package:shopperz/data/model/order_history_model.dart';
@@ -37,8 +39,8 @@ class OrderRepo {
     var dio = Dio(
       await getBasseOptionsWithToken(),
     );
-    String url = ApiList.orderHistory.toString() +
-        '?paginate=$paginate&page=$page&per_page=$perPage&active=5';
+    String url =
+        '${ApiList.orderHistory}?paginate=$paginate&page=$page&per_page=$perPage&active=5';
     try {
       response = await dio.get(url);
       if (response.statusCode == 200) {

@@ -19,7 +19,7 @@ class SplashScreen extends StatelessWidget {
       Get.offNamed(Routes.navBarView);
     });
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value:const SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.white,
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.dark,
@@ -31,7 +31,7 @@ class SplashScreen extends StatelessWidget {
         body: Center(
           child: SvgPicture.asset(
             SvgIcon.logo,
-            height: 50.h,
+            height: 120.h,
           ),
         ),
       ),

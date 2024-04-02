@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopperz/app/modules/search/model/all_product.dart';
+import 'package:shopperz/app/modules/product_details/model/Product_model.dart';
 import 'package:shopperz/data/remote_services/remote_services.dart';
 
 class ProductSearchController extends GetxController {
   final searchTextController = TextEditingController();
-  final productList = <Datum>[].obs;
-  var searchAllProductList = <Datum>[].obs;
+  final productList = <Product>[].obs;
+  var searchAllProductList = <Product>[].obs;
   final isLoading = false.obs;
 
   Future<dynamic> fetchAllProduct() async {

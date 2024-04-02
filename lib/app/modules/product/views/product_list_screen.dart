@@ -173,6 +173,7 @@ class _ProductlistScreenState extends State<ProductlistScreen> {
                               textRating: productList[index].ratingStarCount,
                               flashSale: productList[index].flashSale,
                               isOffer: productList[index].isOffer,
+                              offer_end_date: productList[index].offer_end_date,
                             ),
                           );
                         }),

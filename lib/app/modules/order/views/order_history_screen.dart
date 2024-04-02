@@ -34,6 +34,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
   @override
   void dispose() {
     order.resetState();
+    order.resetState();
     super.dispose();
   }
 
@@ -82,7 +83,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                     Expanded(
                       child: Obx(
                         () => order.orderHistoryList.isNotEmpty &&
-                                order.orderHistoryList.length > 0
+                                order.orderHistoryList.isNotEmpty
                             ? ListView.builder(
                                 controller: order.scrollController,
                                 itemCount: order.orderHistoryList.length +
@@ -94,7 +95,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                                     return Stack(
                                       alignment: Alignment.center,
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           height: 40.h,
                                           width: 40.w,
                                           child:

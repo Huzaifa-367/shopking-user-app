@@ -201,6 +201,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                     false,
                                 isOffer: searchController
                                     .productList[index].isOffer!,
+                                offer_end_date: searchController
+                                    .productList[index].offer_end_date,
                               ),
                             SizedBox(height: 12.h),
                           ],

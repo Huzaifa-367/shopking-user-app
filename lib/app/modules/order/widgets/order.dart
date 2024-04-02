@@ -11,14 +11,14 @@ import 'package:shopperz/widgets/textwidget.dart';
 import '../../../../config/theme/app_color.dart';
 
 class OrderWidget extends StatelessWidget {
-  const OrderWidget({super.key,required this.order});
+  const OrderWidget({super.key, required this.order});
   final Data? order;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(()=> OrderDetailsScreen(id: order!.id.toString()));
+        Get.to(() => OrderDetailsScreen(id: order!.id.toString()));
       },
       child: Stack(
         children: [
@@ -30,7 +30,7 @@ class OrderWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12.r),
                 boxShadow: [
                   BoxShadow(
-                      color: AppColor.blackColor.withOpacity(0.04),
+                      color: AppColor.blackColor.withOpacity(0.05),
                       offset: const Offset(0, 0),
                       blurRadius: 10.r)
                 ]),
@@ -61,7 +61,7 @@ class OrderWidget extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                       TextWidget(
-                        text: '${order!.orderItems.toString()} ' + 'Product'.tr,
+                        text: '${order!.orderItems.toString()} ${'Product'.tr}',
                         color: AppColor.textColor,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
@@ -78,8 +78,19 @@ class OrderWidget extends StatelessWidget {
                       ),
                       TextWidget(
                         text: order!.statusName.toString(),
-                        color: order!.status == 1 ? AppColor
-                            .pendingColor : order!.status == 5 ? AppColor.primaryColor : order!.status == 7 ? AppColor.onthewayColor : order!.status == 10 ? AppColor.greenColor : order!.status == 15 ? AppColor.redColor2 : order!.status == 20 ? AppColor.redColor2 : null,
+                        color: order!.status == 1
+                            ? AppColor.pendingColor
+                            : order!.status == 5
+                                ? AppColor.primaryColor
+                                : order!.status == 7
+                                    ? AppColor.onthewayColor
+                                    : order!.status == 10
+                                        ? AppColor.greenColor
+                                        : order!.status == 15
+                                            ? AppColor.redColor2
+                                            : order!.status == 20
+                                                ? AppColor.redColor2
+                                                : null,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                       ),
@@ -95,8 +106,11 @@ class OrderWidget extends StatelessWidget {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                            color: order!.paymentStatus == 5 ? AppColor
-                                .paidColor: order!.paymentStatus == 10 ? AppColor.unpaidColor:null,
+                            color: order!.paymentStatus == 5
+                                ? AppColor.paidColor
+                                : order!.paymentStatus == 10
+                                    ? AppColor.unpaidColor
+                                    : null,
                             borderRadius: BorderRadius.circular(10.r)),
                         child: Padding(
                           padding: EdgeInsets.all(4.r),
@@ -104,11 +118,19 @@ class OrderWidget extends StatelessWidget {
                             children: [
                               Center(
                                 child: Padding(
-                                  padding: EdgeInsets.only(left: 2.w, right: 2.w),
+                                  padding:
+                                      EdgeInsets.only(left: 2.w, right: 2.w),
                                   child: TextWidget(
-                                    text: order!.paymentStatus == 5 ? 'Paid'.tr : order!.paymentStatus == 10 ? 'Unpaid'.tr : '',
-                                    color: order!.paymentStatus == 5 ? AppColor
-                                        .greenColor : order!.paymentStatus == 10 ? AppColor.redColor2 : null, // unpaid color AppColor.redColor2 //refund color AppColor.refundTextColor
+                                    text: order!.paymentStatus == 5
+                                        ? 'Paid'.tr
+                                        : order!.paymentStatus == 10
+                                            ? 'Unpaid'.tr
+                                            : '',
+                                    color: order!.paymentStatus == 5
+                                        ? AppColor.greenColor
+                                        : order!.paymentStatus == 10
+                                            ? AppColor.redColor2
+                                            : null, // unpaid color AppColor.redColor2 //refund color AppColor.refundTextColor
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w500,
                                   ),

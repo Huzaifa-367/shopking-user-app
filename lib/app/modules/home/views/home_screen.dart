@@ -118,6 +118,7 @@ class HomeScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      ////  Banners Section
                       Padding(
                         padding: EdgeInsets.only(right: 16.w),
                         child: Obx(() {
@@ -130,6 +131,7 @@ class HomeScreen extends StatelessWidget {
                         }),
                       ),
                       SizedBox(height: 24.h),
+                      ////  Categories Section
                       Obx(() {
                         return categoryController
                                     .categoryModel.value.data?.isNotEmpty ??
@@ -158,6 +160,7 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 22.h),
+                  ////  Custom dynamic Sections
                   SizedBox(
                     child: Obx(() {
                       return productSectionController
@@ -190,126 +193,261 @@ class HomeScreen extends StatelessWidget {
                                                         .name
                                                         .toString()),
                                                 SizedBox(height: 12.h),
-                                                StaggeredGrid.count(
-                                                  crossAxisCount: 2,
-                                                  mainAxisSpacing: 10.h,
-                                                  crossAxisSpacing: 10.w,
-                                                  children: [
-                                                    for (var i = 0;
-                                                        i <
-                                                            section[index]
-                                                                .products!
-                                                                .length;
-                                                        i++)
-                                                      Obx(
-                                                        () => ProductWidget(
-                                                          onTap: () {
-                                                            Get.to(
-                                                              () => ProductDetailsScreen(
-                                                                  sectionModel:
-                                                                      section[
-                                                                          index],
-                                                                  productModel:
-                                                                      section[index]
-                                                                          .products![i]),
-                                                            );
-                                                          },
-                                                          favTap: () async {
-                                                            if (box.read(
-                                                                    'isLogedIn') !=
-                                                                false) {
-                                                              if (section[index]
-                                                                      .products![
-                                                                          i]
-                                                                      .wishlist ==
-                                                                  true) {
-                                                                await wishListController
-                                                                    .toggleFavoriteFalse(section[
-                                                                            index]
-                                                                        .products![
-                                                                            i]
-                                                                        .id!);
-                                                                wishListController
-                                                                    .showFavorite(section[
-                                                                            index]
-                                                                        .products![
-                                                                            i]
-                                                                        .id!);
-                                                              }
-                                                              if (section[index]
-                                                                      .products![
-                                                                          i]
-                                                                      .wishlist ==
+                                                SizedBox(
+                                                  height: 270.h,
+                                                  child: ListView.builder(
+                                                    itemCount: section[index]
+                                                        .products!
+                                                        .length,
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    shrinkWrap: true,
+                                                    itemBuilder:
+                                                        (BuildContext context,
+                                                            int i) {
+                                                      return Obx(
+                                                        () => Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                            horizontal: 4.0,
+                                                          ),
+                                                          child: ProductWidget(
+                                                            onTap: () {
+                                                              Get.to(
+                                                                () => ProductDetailsScreen(
+                                                                    sectionModel:
+                                                                        section[
+                                                                            index],
+                                                                    productModel:
+                                                                        section[index]
+                                                                            .products![i]),
+                                                              );
+                                                            },
+                                                            favTap: () async {
+                                                              if (box.read(
+                                                                      'isLogedIn') !=
                                                                   false) {
-                                                                await wishListController
-                                                                    .toggleFavoriteTrue(section[
-                                                                            index]
+                                                                if (section[index]
                                                                         .products![
                                                                             i]
-                                                                        .id!);
-                                                                wishListController
-                                                                    .showFavorite(section[
-                                                                            index]
-                                                                        .products![
-                                                                            i]
-                                                                        .id!);
-                                                              }
-                                                            } else {
-                                                              Get.to(() =>
-                                                                  const SignInScreen());
-                                                            }
-                                                          },
-                                                          wishlist: wishListController
-                                                                      .favList
-                                                                      .contains(section[index]
-                                                                          .products![
-                                                                              i]
-                                                                          .id!) ||
-                                                                  productSectionController
-                                                                          .productSection
-                                                                          .value
-                                                                          .data![
+                                                                        .wishlist ==
+                                                                    true) {
+                                                                  await wishListController
+                                                                      .toggleFavoriteFalse(section[
                                                                               index]
                                                                           .products![
                                                                               i]
-                                                                          .wishlist ==
-                                                                      true
-                                                              ? true
-                                                              : false,
-                                                          productImage:
-                                                              section[index]
-                                                                  .products![i]
-                                                                  .cover!,
-                                                          title: section[index]
-                                                              .products![i]
-                                                              .name,
-                                                          rating: section[index]
-                                                              .products![i]
-                                                              .ratingStar,
-                                                          currentPrice: section[
-                                                                  index]
-                                                              .products![i]
-                                                              .currencyPrice,
-                                                          discountPrice: section[
-                                                                  index]
-                                                              .products![i]
-                                                              .discountedPrice,
-                                                          textRating: section[
-                                                                  index]
-                                                              .products![i]
-                                                              .ratingStarCount,
-                                                          flashSale:
-                                                              section[index]
-                                                                  .products![i]
-                                                                  .flashSale!,
-                                                          isOffer:
-                                                              section[index]
-                                                                  .products![i]
-                                                                  .isOffer!,
+                                                                          .id!);
+                                                                  wishListController
+                                                                      .showFavorite(section[
+                                                                              index]
+                                                                          .products![
+                                                                              i]
+                                                                          .id!);
+                                                                }
+                                                                if (section[index]
+                                                                        .products![
+                                                                            i]
+                                                                        .wishlist ==
+                                                                    false) {
+                                                                  await wishListController
+                                                                      .toggleFavoriteTrue(section[
+                                                                              index]
+                                                                          .products![
+                                                                              i]
+                                                                          .id!);
+                                                                  wishListController
+                                                                      .showFavorite(section[
+                                                                              index]
+                                                                          .products![
+                                                                              i]
+                                                                          .id!);
+                                                                }
+                                                              } else {
+                                                                Get.to(() =>
+                                                                    const SignInScreen());
+                                                              }
+                                                            },
+                                                            wishlist: wishListController
+                                                                        .favList
+                                                                        .contains(section[index]
+                                                                            .products![
+                                                                                i]
+                                                                            .id!) ||
+                                                                    productSectionController
+                                                                            .productSection
+                                                                            .value
+                                                                            .data![index]
+                                                                            .products![i]
+                                                                            .wishlist ==
+                                                                        true
+                                                                ? true
+                                                                : false,
+                                                            productImage:
+                                                                section[index]
+                                                                    .products![
+                                                                        i]
+                                                                    .cover!,
+                                                            title: section[
+                                                                    index]
+                                                                .products![i]
+                                                                .name,
+                                                            rating: section[
+                                                                    index]
+                                                                .products![i]
+                                                                .ratingStar,
+                                                            currentPrice: section[
+                                                                    index]
+                                                                .products![i]
+                                                                .currencyPrice,
+                                                            discountPrice: section[
+                                                                    index]
+                                                                .products![i]
+                                                                .discountedPrice,
+                                                            textRating: section[
+                                                                    index]
+                                                                .products![i]
+                                                                .ratingStarCount,
+                                                            flashSale: section[
+                                                                    index]
+                                                                .products![i]
+                                                                .flashSale!,
+                                                            isOffer: section[
+                                                                    index]
+                                                                .products![i]
+                                                                .isOffer!,
+                                                            offer_end_date: section[
+                                                                    index]
+                                                                .products![i]
+                                                                .offer_end_date,
+                                                          ),
                                                         ),
-                                                      ),
-                                                  ],
+                                                      );
+                                                    },
+                                                  ),
                                                 ),
+                                                // StaggeredGrid.count(
+                                                //   crossAxisCount: 2,
+                                                //   mainAxisSpacing: 10.h,
+                                                //   crossAxisSpacing: 10.w,
+                                                //   children: [
+                                                //     for (var i = 0;
+                                                //         i <
+                                                //             section[index]
+                                                //                 .products!
+                                                //                 .length;
+                                                //         i++)
+                                                //       Obx(
+                                                //         () => ProductWidget(
+                                                //           onTap: () {
+                                                //             Get.to(
+                                                //               () => ProductDetailsScreen(
+                                                //                   sectionModel:
+                                                //                       section[
+                                                //                           index],
+                                                //                   productModel:
+                                                //                       section[index]
+                                                //                           .products![i]),
+                                                //             );
+                                                //           },
+                                                //           favTap: () async {
+                                                //             if (box.read(
+                                                //                     'isLogedIn') !=
+                                                //                 false) {
+                                                //               if (section[index]
+                                                //                       .products![
+                                                //                           i]
+                                                //                       .wishlist ==
+                                                //                   true) {
+                                                //                 await wishListController
+                                                //                     .toggleFavoriteFalse(section[
+                                                //                             index]
+                                                //                         .products![
+                                                //                             i]
+                                                //                         .id!);
+                                                //                 wishListController
+                                                //                     .showFavorite(section[
+                                                //                             index]
+                                                //                         .products![
+                                                //                             i]
+                                                //                         .id!);
+                                                //               }
+                                                //               if (section[index]
+                                                //                       .products![
+                                                //                           i]
+                                                //                       .wishlist ==
+                                                //                   false) {
+                                                //                 await wishListController
+                                                //                     .toggleFavoriteTrue(section[
+                                                //                             index]
+                                                //                         .products![
+                                                //                             i]
+                                                //                         .id!);
+                                                //                 wishListController
+                                                //                     .showFavorite(section[
+                                                //                             index]
+                                                //                         .products![
+                                                //                             i]
+                                                //                         .id!);
+                                                //               }
+                                                //             } else {
+                                                //               Get.to(() =>
+                                                //                   const SignInScreen());
+                                                //             }
+                                                //           },
+                                                //           wishlist: wishListController
+                                                //                       .favList
+                                                //                       .contains(section[index]
+                                                //                           .products![
+                                                //                               i]
+                                                //                           .id!) ||
+                                                //                   productSectionController
+                                                //                           .productSection
+                                                //                           .value
+                                                //                           .data![
+                                                //                               index]
+                                                //                           .products![
+                                                //                               i]
+                                                //                           .wishlist ==
+                                                //                       true
+                                                //               ? true
+                                                //               : false,
+                                                //           productImage:
+                                                //               section[index]
+                                                //                   .products![i]
+                                                //                   .cover!,
+                                                //           title: section[index]
+                                                //               .products![i]
+                                                //               .name,
+                                                //           rating: section[index]
+                                                //               .products![i]
+                                                //               .ratingStar,
+                                                //           currentPrice: section[
+                                                //                   index]
+                                                //               .products![i]
+                                                //               .currencyPrice,
+                                                //           discountPrice: section[
+                                                //                   index]
+                                                //               .products![i]
+                                                //               .discountedPrice,
+                                                //           textRating: section[
+                                                //                   index]
+                                                //               .products![i]
+                                                //               .ratingStarCount,
+                                                //           flashSale:
+                                                //               section[index]
+                                                //                   .products![i]
+                                                //                   .flashSale!,
+                                                //           isOffer:
+                                                //               section[index]
+                                                //                   .products![i]
+                                                //                   .isOffer!,
+                                                //         ),
+                                                //       ),
+                                                //   ],
+                                                // ),
+
                                                 SizedBox(height: 32.h),
                                                 MultiPromotionBanner(
                                                   pIndex: index,
@@ -322,6 +460,7 @@ class HomeScreen extends StatelessWidget {
                               : const SizedBox();
                     }),
                   ),
+                  ////  Popular Section
                   Obx(
                     () => popularProductController.popularModel.value.data ==
                             null
@@ -486,6 +625,12 @@ class HomeScreen extends StatelessWidget {
                                                 .value
                                                 .data?[index]
                                                 .isOffer!,
+                                            offer_end_date:
+                                                popularProductController
+                                                    .popularModel
+                                                    .value
+                                                    .data?[index]
+                                                    .offer_end_date,
                                           ),
                                       ],
                                     ),
@@ -495,6 +640,7 @@ class HomeScreen extends StatelessWidget {
                             : const SizedBox(),
                   ),
                   SizedBox(height: 34.h),
+                  ////  flashSale Section
                   Obx(
                     () => flashSaleController.flashSaleModel.value.data == null
                         ? ProductShimmer(
@@ -618,6 +764,8 @@ class HomeScreen extends StatelessWidget {
                                                   flashSale:
                                                       flashSale.flashSale!,
                                                   isOffer: flashSale.isOffer!,
+                                                  offer_end_date:
+                                                      flashSale.offer_end_date,
                                                 ),
                                               );
                                             }),
@@ -630,6 +778,7 @@ class HomeScreen extends StatelessWidget {
                             : const SizedBox(),
                   ),
                   SizedBox(height: 34.h),
+                  ////  Brands Section
                   Obx(
                     () => brandController.brandModel.value.data != null
                         ? Column(

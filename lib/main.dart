@@ -11,7 +11,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shopperz/data/helper/notification_helper.dart';
 import 'package:shopperz/data/model/body/notification_body.dart';
-import 'package:shopperz/firebase_options.dart';
+// import 'package:shopperz/firebase_options.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(360, 800),
       builder: ((context, child) => GetMaterialApp(
-            title: 'ShopKing',
+            title: 'Sahulat Shopping',
             debugShowCheckedModeBanner: false,
             translations: Languages(),
             locale: langValue,

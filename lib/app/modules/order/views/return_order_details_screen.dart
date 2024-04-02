@@ -30,6 +30,7 @@ class _ReturnOrderDetailsScreenState extends State<ReturnOrderDetailsScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    returnController.resetState();
     if (box.read('isLogedIn') != false) {
       returnController.getReturnOrdersDetails(return_id: widget.id.toString());
     }
@@ -53,6 +54,7 @@ class _ReturnOrderDetailsScreenState extends State<ReturnOrderDetailsScreen> {
         body: RefreshIndicator(
           color: AppColor.primaryColor,
           onRefresh: () async {
+            returnController.resetState();
             if (box.read('isLogedIn') != false) {
               returnController.getReturnOrdersDetails(
                   return_id: widget.id.toString());

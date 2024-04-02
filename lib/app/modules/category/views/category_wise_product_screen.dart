@@ -328,6 +328,10 @@ class _CategoryWiseProductScreenState extends State<CategoryWiseProductScreen> {
                                           isOffer: cateWiseProductController
                                               .categoryWiseProductList[i]
                                               .isOffer!,
+                                          offer_end_date:
+                                              cateWiseProductController
+                                                  .categoryWiseProductList[i]
+                                                  .offer_end_date!,
                                         ),
                                       ),
                                     );

@@ -24,7 +24,7 @@ class _AddressWidgetState extends State<AddressWidget> {
   @override
   void initState() {
     address =
-        '${widget.address!.city.toString() != '' ? widget.address!.city.toString() + ', ' : ''} ${widget.address!.state.toString() != '' ? widget.address!.state.toString() + ', ' : ''} ${widget.address!.country.toString() != '' ? widget.address!.country.toString() + ', ' : ''} ${widget.address!.zipCode.toString() != '' ? widget.address!.zipCode.toString() : ''}'
+        '${widget.address!.city.toString() != '' ? '${widget.address!.city}, ' : ''} ${widget.address!.state.toString() != '' ? '${widget.address!.state}, ' : ''} ${widget.address!.country.toString() != '' ? '${widget.address!.country}, ' : ''} ${widget.address!.zipCode.toString() != '' ? widget.address!.zipCode.toString() : ''}'
             .replaceAll('', '');
     super.initState();
   }
@@ -51,7 +51,7 @@ class _AddressWidgetState extends State<AddressWidget> {
   openDeleteAddressDialog() {
     Get.dialog(Dialog(
       insetPadding: EdgeInsets.zero,
-      backgroundColor: Colors.transparent, 
+      backgroundColor: Colors.transparent,
       child: AddressDeleteWidget(id: widget.address!.id.toString()),
     ));
   }
@@ -63,9 +63,14 @@ class _AddressWidgetState extends State<AddressWidget> {
         Container(
           width: 328.w,
           decoration: BoxDecoration(
-            color: AppColor.addressColor,
-            borderRadius: BorderRadius.circular(12.r), 
-          ),
+              color: AppColor.whiteColor,
+              borderRadius: BorderRadius.circular(12.r),
+              boxShadow: [
+                BoxShadow(
+                    color: AppColor.blackColor.withOpacity(0.05),
+                    offset: const Offset(0, 0),
+                    blurRadius: 10.r)
+              ]),
           child: Padding(
             padding: EdgeInsets.all(12.r),
             child: Column(
@@ -82,8 +87,8 @@ class _AddressWidgetState extends State<AddressWidget> {
                   height: 8.h,
                 ),
                 TextWidget(
-                  text:
-                      '${widget.address!.countryCode.toString() + widget.address!.phone.toString()}',
+                  text: widget.address!.countryCode.toString() +
+                      widget.address!.phone.toString(),
                   color: AppColor.textColor,
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
