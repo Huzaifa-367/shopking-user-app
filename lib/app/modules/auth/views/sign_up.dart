@@ -9,6 +9,7 @@ import 'package:shopperz/app/modules/auth/views/sign_in.dart';
 import 'package:shopperz/utils/svg_icon.dart';
 import 'package:shopperz/utils/validation_rules.dart';
 import 'package:shopperz/widgets/appbar3.dart';
+import 'package:shopperz/widgets/custom_phone_form_field.dart';
 import 'package:shopperz/widgets/loader/loader.dart';
 
 import '../../../../config/theme/app_color.dart';
@@ -93,13 +94,82 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     ValidationRules().normal(name),
                               ),
                               SizedBox(height: 20.h),
-                              const SwapFieldTitle(),
+                              // const SwapFieldTitle(),
+                              FormFieldTitle(title: "Email".tr),
                               SizedBox(height: 4.h),
-                              SwapFormField(
-                                emailController: authController.emailController,
-                                emailValidator: (email) =>
+                              CustomFormField(
+                                controller: authController.emailController,
+                                obsecure: false,
+                                validator: (email) =>
                                     ValidationRules().email(email),
+                              ),
+                              SizedBox(height: 20.h),
+                              FormFieldTitle(title: "Phone".tr),
+                              SizedBox(height: 4.h),
+                              // SwapFormField(
+                              //   emailController: authController.emailController,
+                              //   emailValidator: (email) =>
+                              //       ValidationRules().email(email),
+                              //   phoneController: authController.phoneController,
+                              //   prefix: Padding(
+                              //     padding: EdgeInsets.only(left: 10.w),
+                              //     child: PopupMenuButton(
+                              //       shape: RoundedRectangleBorder(
+                              //         borderRadius: BorderRadius.all(
+                              //           Radius.circular(10.r),
+                              //         ),
+                              //       ),
+                              //       position: PopupMenuPosition.under,
+                              //       itemBuilder: (ctx) => List.generate(
+                              //           authController
+                              //               .countryCodeModel!.data!.length,
+                              //           (index) => PopupMenuItem(
+                              //                 height: 32.h,
+                              //                 onTap: () async {
+                              //                   setState(() {
+                              //                     authController.countryCode =
+                              //                         authController
+                              //                             .countryCodeModel!
+                              //                             .data![index]
+                              //                             .callingCode
+                              //                             .toString();
+                              //                   });
+                              //                 },
+                              //                 child: Text(
+                              //                   authController.countryCodeModel!
+                              //                       .data![index].callingCode
+                              //                       .toString(),
+                              //                   style: GoogleFonts.urbanist(
+                              //                       color: AppColor.textColor,
+                              //                       fontWeight: FontWeight.w500,
+                              //                       fontSize: 16.sp),
+                              //                 ),
+                              //               )),
+                              //       child: Row(
+                              //         children: [
+                              //           Text(
+                              //             authController.countryCode,
+                              //             style: GoogleFonts.urbanist(
+                              //                 color: AppColor.textColor,
+                              //                 fontSize: 16.sp,
+                              //                 fontWeight: FontWeight.w500),
+                              //           ),
+                              //           SizedBox(
+                              //             width: 5.w,
+                              //           ),
+                              //           SvgPicture.asset(SvgIcon.down)
+                              //         ],
+                              //       ),
+                              //     ),
+                              //   ),
+                              //   phoneValidator: (phone) =>
+                              //       ValidationRules().phone(phone),
+                              // ),
+
+                              CustomPhoneFormField(
                                 phoneController: authController.phoneController,
+                                validator: (phone) =>
+                                    ValidationRules().phone(phone),
                                 prefix: Padding(
                                   padding: EdgeInsets.only(left: 10.w),
                                   child: PopupMenuButton(
@@ -151,15 +221,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     ),
                                   ),
                                 ),
-                                phoneValidator: (phone) =>
-                                    ValidationRules().normal(phone),
                               ),
                               SizedBox(height: 20.h),
                               FormFieldTitle(title: "Password".tr),
                               SizedBox(height: 4.h),
                               CustomFormField(
                                 controller: authController.passController,
-                                obsecure: true,
+                                obsecure: false,
                                 validator: (password) =>
                                     ValidationRules().password(password),
                               ),
@@ -175,6 +243,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                                   .nameController.text,
                                               email: authController
                                                   .emailController.text,
+                                              phone: authController
+                                                  .phoneController.text,
+                                              countryCode:
+                                                  authController.countryCode,
                                               password: authController
                                                   .passController.text,
                                             )

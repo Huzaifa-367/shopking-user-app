@@ -112,7 +112,9 @@ class _SignInScreenState extends State<SignInScreen> {
                           key: formkey,
                           child: Column(
                             children: [
-                              const SwapFieldTitle(),
+                              FormFieldTitle(title: "Email".tr),
+
+                              // const SwapFieldTitle(),
                               SizedBox(height: 4.h),
                               SwapFormField(
                                 emailController: emailController,
@@ -173,14 +175,15 @@ class _SignInScreenState extends State<SignInScreen> {
                                 phoneValidator: (phone) =>
                                     ValidationRules().normal(phone),
                               ),
+
                               SizedBox(height: 20.h),
                               FormFieldTitle(title: "Password".tr),
                               SizedBox(height: 4.h),
                               CustomFormField(
-                                obsecure: true,
+                                obsecure: false,
                                 controller: passController,
                                 validator: (password) =>
-                                    ValidationRules().password(password),
+                                    ValidationRules().normal(password),
                               ),
                               SizedBox(height: 12.h),
                               Row(

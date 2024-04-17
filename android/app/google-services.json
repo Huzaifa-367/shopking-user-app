@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "679998278497",
-    "project_id": "shopking-77bb7",
-    "storage_bucket": "shopking-77bb7.appspot.com"
+    "project_number": "814493246737",
+    "project_id": "sahulat-shopping",
+    "storage_bucket": "sahulat-shopping.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:679998278497:android:9dfd5d627747965f2d9320",
+        "mobilesdk_app_id": "1:814493246737:android:5be70aa55755e4d09ad8b0",
         "android_client_info": {
-          "package_name": "com.shopking.user"
+          "package_name": "com.sahulat.shopping"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDu05f8WpeAxXlh1p2xIq9BANl3OXZznk4"
+          "current_key": "AIzaSyC-4XMghjzw3jIL-hd5TwrUPzMs_dBClm0"
         }
       ],
       "services": {

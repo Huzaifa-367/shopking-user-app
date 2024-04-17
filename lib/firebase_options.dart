@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDz0-e2QhqWy8AQ6hQG70oxjHrJCisR9-k',
-    appId: '1:679998278497:android:9dfd5d627747965f2d9320',
-    messagingSenderId: 'G-ZS4VNP9ZH0',
-    projectId: 'shopking-77bb7',
-    storageBucket: 'shopking-77bb7.appspot.com',
+    apiKey: 'AIzaSyC-4XMghjzw3jIL-hd5TwrUPzMs_dBClm0',
+    appId: '1:814493246737:android:5be70aa55755e4d09ad8b0',
+    messagingSenderId: '814493246737',
+    projectId: 'sahulat-shopping',
+    storageBucket: 'sahulat-shopping.appspot.com',
   );
 
   /// IOS Needs Configue
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyABoypBa2lw750AVUHjNg0Y7HXyqskrgc0',
-    appId: '1:G-ZS4VNP9ZH0:ios:836ee2a148ab62701bc7f1',
-    messagingSenderId: 'G-ZS4VNP9ZH0',
-    projectId: 'shopking-77bb7',
-    storageBucket: 'shopking-77bb7.appspot.com',
-    iosBundleId: 'com.shopking.user',
+    appId: '1:814493246737:ios:836ee2a148ab62701bc7f1',
+    messagingSenderId: '814493246737',
+    projectId: 'sahulat-shopping',
+    storageBucket: 'sahulat-shopping.appspot.com',
+    iosBundleId: 'com.sahulat.shopping',
   );
 }

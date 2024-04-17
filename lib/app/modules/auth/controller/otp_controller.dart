@@ -30,6 +30,8 @@ class OTPController extends GetxController {
         authController.registrationWithEmail(
             name: authController.nameController.text,
             email: email,
+            phone: authController.phoneController.text,
+            countryCode: authController.countryCode,
             password: authController.passController.text);
       } else {
         isLoading(false);

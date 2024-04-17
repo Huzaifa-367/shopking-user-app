@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 class SwapTitleController extends GetxController {
-  final isShowEmailField = false.obs;
+  final isShowEmailField = true.obs;
 
   bool showEmailField() {
     isShowEmailField.value = !isShowEmailField.value;

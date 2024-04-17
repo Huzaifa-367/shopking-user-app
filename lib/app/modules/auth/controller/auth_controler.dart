@@ -258,6 +258,8 @@ class AuthController extends GetxController {
   registrationValidationWithEmail(
       {required String name,
       required String email,
+      required String phone,
+      required String countryCode,
       required String password}) async {
     isLoading(true);
     try {
@@ -265,6 +267,8 @@ class AuthController extends GetxController {
           .httpPost(endPoint: ApiList.registrationValidation.toString(), body: {
         "name": name,
         "email": email,
+        "phone": phone,
+        "country_code": countryCode,
         "password": password,
       });
 
@@ -295,6 +299,8 @@ class AuthController extends GetxController {
   registrationWithEmail(
       {required String name,
       required String email,
+      required String phone,
+      required String countryCode,
       required String password}) async {
     isLoading(true);
     try {
@@ -302,6 +308,8 @@ class AuthController extends GetxController {
           await AppServer().httpPost(endPoint: ApiList.register, body: {
         "name": name,
         "email": email,
+        "phone": phone,
+        "country_code": countryCode,
         "password": password,
       });
       if (response.statusCode == 200) {
