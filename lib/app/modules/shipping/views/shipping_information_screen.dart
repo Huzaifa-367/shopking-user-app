@@ -10,8 +10,9 @@ import 'package:shopperz/app/modules/coupon/controller/coupon_controller.dart';
 import 'package:shopperz/app/modules/payment/controller/payment_controller.dart';
 import 'package:shopperz/app/modules/profile/widgets/add_new_address.dart';
 import 'package:shopperz/app/modules/profile/widgets/address_screen.dart';
+import 'package:shopperz/app/modules/profile/widgets/address_widget.dart';
 import 'package:shopperz/app/modules/shipping/controller/show_address_controller.dart';
-import 'package:shopperz/app/modules/shipping/widgets/address_widget.dart';
+import 'package:shopperz/app/modules/shipping/widgets/address_card.dart';
 import 'package:shopperz/main.dart';
 import 'package:shopperz/widgets/appbar3.dart';
 import 'package:shopperz/widgets/custom_snackbar.dart';
@@ -107,7 +108,7 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
             }
           },
           child: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Padding(
               padding: EdgeInsets.only(top: 16.h, left: 16.w, right: 16.w),
               child: Column(
@@ -115,20 +116,20 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                 children: [
                   Container(
                     height: 32.h,
-                    width: 161.w,
+                    // width: 161.w,
+                    width: 83.w,
                     decoration: BoxDecoration(
                         color: AppColor.selectDeliveyColor,
                         borderRadius: BorderRadius.circular(20.r)),
-          
                     child: Center(
                       child: Row(
                         children: [
                           GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                isDelivery = true;
-                              });
-                            },
+                            // onTap: () {
+                            //   setState(() {
+                            //     isDelivery = true;
+                            //   });
+                            // },
                             child: Container(
                               height: 32.h,
                               width: 83.w,
@@ -149,37 +150,36 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                               ),
                             ),
                           ),
-                          GestureDetector(
-                            onTap: () {          
-                              setState(() {
-                                isDelivery = false;
-                              });
-                            },
-                            child: Container(
-                              height: 32.h,
-                              width: 78.w,
-                              decoration: BoxDecoration(
-                                  color: isDelivery
-                                      ? AppColor.selectDeliveyColor
-                                      : AppColor.deliveryColor,
-                                  borderRadius: BorderRadius.circular(20.r)),
-                              child: Center(
-                                child: TextWidget(
-                                  text: 'Pick Up'.tr,
-                                  color: isDelivery
-                                      ? AppColor.deliveryColor
-                                      : AppColor.whiteColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          )
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     setState(() {
+                          //       isDelivery = false;
+                          //     });
+                          //   },
+                          //   child: Container(
+                          //     height: 32.h,
+                          //     width: 78.w,
+                          //     decoration: BoxDecoration(
+                          //         color: isDelivery
+                          //             ? AppColor.selectDeliveyColor
+                          //             : AppColor.deliveryColor,
+                          //         borderRadius: BorderRadius.circular(20.r)),
+                          //     child: Center(
+                          //       child: TextWidget(
+                          //         text: 'Pick Up'.tr,
+                          //         color: isDelivery
+                          //             ? AppColor.deliveryColor
+                          //             : AppColor.whiteColor,
+                          //         fontSize: 14.sp,
+                          //         fontWeight: FontWeight.w600,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // )
                         ],
                       ),
                     ),
                   ),
-          
                   SizedBox(
                     height: 30.h,
                   ),
@@ -197,7 +197,7 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                   child: ListView.builder(
                                     shrinkWrap: true,
                                     physics:
-                                          const NeverScrollableScrollPhysics(),
+                                        const NeverScrollableScrollPhysics(),
                                     itemCount: showAddressController
                                         .outlestModel.value.data!.length,
                                     itemBuilder: (context, index) {
@@ -251,18 +251,10 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                                       width: 16.w,
                                                     ),
                                                     SizedBox(width: 16.w),
+                                                    // const AddressWidget(),
                                                     AddressCard(
-                                                        fullName: outlet.name ??
-                                                            "",
-                                                        phone: outlet.phone ??
-                                                            "",
-                                                        email: outlet.email ??
-                                                            "",
-                                                        streetAddress: outlet
-                                                                .address ??
-                                                            "",
-                                                        state: outlet.state ??
-                                                            ""),
+                                                      address: outlet,
+                                                    ),
                                                   ],
                                                 ),
                                               ),
@@ -274,8 +266,7 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                   ),
                                 ),
                         )
-                      :
-                      Row(
+                      : Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             TextWidget(
@@ -307,7 +298,6 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                   SizedBox(
                     height: 12.h,
                   ),
-          
                   box.read('isLogedIn') == false
                       ? const Center(child: SizedBox())
                       : isDelivery == false
@@ -330,7 +320,8 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                           onTap: () {
                                             showAddressController
                                                 .setSelectedAddressIndex(index);
-                                            cartController.areaWiseShippingCal();
+                                            cartController
+                                                .areaWiseShippingCal();
                                           },
                                           child: Padding(
                                             padding: EdgeInsets.symmetric(
@@ -350,17 +341,20 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                                                   .selectedAddressIndex
                                                                   .value ==
                                                               index
-                                                          ? AppColor.primaryColor
+                                                          ? AppColor
+                                                              .primaryColor
                                                           : Colors.transparent,
                                                       width: 1.r),
                                                   borderRadius:
-                                                      BorderRadius.circular(12.r),
+                                                      BorderRadius.circular(
+                                                          12.r),
                                                 ),
                                                 child: Padding(
                                                   padding: EdgeInsets.all(12.r),
                                                   child: Row(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.start,
                                                     children: [
@@ -369,7 +363,8 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                                                     .selectedAddressIndex
                                                                     .value ==
                                                                 index
-                                                            ? SvgIcon.radioActive
+                                                            ? SvgIcon
+                                                                .radioActive
                                                             : SvgIcon.radio,
                                                         height: 16.h,
                                                         width: 16.w,
@@ -387,23 +382,10 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                                                 child:
                                                                     SizedBox())
                                                             : AddressCard(
-                                                                fullName: address![index]
-                                                                        .fullName ??
-                                                                    "",
-                                                                phone: '${address[
-                                                                            index].countryCode !+
-                                                                          address[
-                                                                            index]
-                                                                        .phone.toString()}',
-                                                                email: address[
-                                                                            index]
-                                                                        .email ??
-                                                                    "",
-                                                                streetAddress: '${address[index].city.toString() != '' ? address[index].city.toString() + ', ' : ''} ${address[index].state.toString() != '' ? address[index].state.toString() + ', ' : ''} ${address[index].country.toString() != '' ? address[index].country.toString() + ', ' : ''} ${address[index].zipCode.toString() != '' ? address[index].zipCode.toString() : ''}'
-                                                                .replaceAll(' ', ''),
-                                                                state: address[index]
-                                                                        .address ??
-                                                                    " "),
+                                                                address:
+                                                                    address![
+                                                                        index],
+                                                              ),
                                                       ),
                                                     ],
                                                   ),
@@ -414,11 +396,11 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                         );
                                       }),
                             ),
-          
-                  isDelivery == false ? SizedBox() : SizedBox(
-                    height: 26.h,
-                  ),
-          
+                  isDelivery == false
+                      ? const SizedBox()
+                      : SizedBox(
+                          height: 26.h,
+                        ),
                   isDelivery == false
                       ? const SizedBox()
                       : Row(
@@ -446,19 +428,20 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                               width: 8.w,
                             ),
                             TextWidget(
-                              text: 'Save shipping address as a billing address.'
-                                  .tr,
+                              text:
+                                  'Save shipping address as a billing address.'
+                                      .tr,
                               color: AppColor.textColor,
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w500,
                             ),
                           ],
                         ),
-                  isDelivery == false?
-                  SizedBox(
-                    height: 24.h,
-                  ):SizedBox(),
-          
+                  isDelivery == false
+                      ? SizedBox(
+                          height: 24.h,
+                        )
+                      : const SizedBox(),
                   isDelivery == false
                       ? const SizedBox()
                       : Obx(
@@ -482,7 +465,8 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    showAddressController.addressSelected.value =
+                                    showAddressController
+                                            .addressSelected.value =
                                         !showAddressController
                                             .addressSelected.value;
                                   },
@@ -511,7 +495,6 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                                       vertical: 4.h),
                                                   child: Obx(
                                                     () => Container(
-                                                      
                                                       width: double.infinity,
                                                       decoration: BoxDecoration(
                                                         color: showAddressController
@@ -533,12 +516,12 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                                                     .transparent,
                                                             width: 1.r),
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                12.r),
+                                                            BorderRadius
+                                                                .circular(12.r),
                                                       ),
                                                       child: Padding(
-                                                        padding:
-                                                            EdgeInsets.all(12.r),
+                                                        padding: EdgeInsets.all(
+                                                            12.r),
                                                         child: Row(
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
@@ -554,7 +537,8 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                                                       index
                                                                   ? SvgIcon
                                                                       .radioActive
-                                                                  : SvgIcon.radio,
+                                                                  : SvgIcon
+                                                                      .radio,
                                                               height: 16.h,
                                                               width: 16.w,
                                                             ),
@@ -569,23 +553,10 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                                                       null
                                                                   ? const SizedBox()
                                                                   : AddressCard(
-                                                                fullName: address![index]
-                                                                        .fullName ??
-                                                                    "",
-                                                                phone: '${address[
-                                                                            index].countryCode !+
-                                                                          address[
-                                                                            index]
-                                                                        .phone.toString()}',
-                                                                email: address[
-                                                                            index]
-                                                                        .email ??
-                                                                    "",
-                                                                streetAddress: '${address[index].city.toString() != '' ? address[index].city.toString() + ', ' : ''} ${address[index].state.toString() != '' ? address[index].state.toString() + ', ' : ''} ${address[index].country.toString() != '' ? address[index].country.toString() + ', ' : ''} ${address[index].zipCode.toString() != '' ? address[index].zipCode.toString() : ''}'
-                                                                .replaceAll(' ', ''),
-                                                                state: address[index]
-                                                                        .address ??
-                                                                    " "),
+                                                                      address:
+                                                                          address![
+                                                                              index],
+                                                                    ),
                                                             ),
                                                           ],
                                                         ),
@@ -601,7 +572,6 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                             ),
                           ),
                         ),
-          
                   isDelivery == false
                       ? const SizedBox()
                       : SizedBox(
@@ -644,7 +614,8 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         couponController
                                                     .applyCouponStatus.value ==
@@ -672,17 +643,16 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                                     .applyCouponStatus.value ==
                                                 false
                                             ? TextWidget(
-                                                text: 'Get discount with your order'.tr,
+                                                text:
+                                                    'Get discount with your order'
+                                                        .tr,
                                                 color: AppColor.textColor,
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w400,
                                               )
-                                            :
-                                            TextWidget(
-                                                text: 'You saved'.tr +
-                                                    ' ${authController.settingModel!.data!
-                                          .siteDefaultCurrencySymbol
-                                          .toString()}${couponController.applyCouponModel.value.data?.convertDiscount!.toStringAsFixed(int.parse(authController.settingModel!.data!.siteDigitAfterDecimalPoint.toString())) ?? 0.0}',
+                                            : TextWidget(
+                                                text:
+                                                    '${'You saved'.tr} ${authController.settingModel!.data!.siteDefaultCurrencySymbol.toString()}${couponController.applyCouponModel.value.data?.convertDiscount!.toStringAsFixed(int.parse(authController.settingModel!.data!.siteDigitAfterDecimalPoint.toString())) ?? 0.0}',
                                                 color: AppColor.textColor,
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w400,
@@ -691,14 +661,14 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                     ),
                                   ],
                                 ),
-                                couponController.applyCouponStatus.value == false
+                                couponController.applyCouponStatus.value ==
+                                        false
                                     ? SvgPicture.asset(
                                         SvgIcon.forwardCoupon,
                                         height: 24.h,
                                         width: 24.h,
                                       )
-                                    :
-                                    InkWell(
+                                    : InkWell(
                                         onTap: () {
                                           box.write("applyCoupon", false);
                                           couponController.applyCouponStatus
@@ -717,12 +687,11 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                       ),
                     ),
                   ),
-          
                   SizedBox(
                     height: 32.h,
                   ),
                   Obx(() {
-                    return OrderSummay( 
+                    return OrderSummay(
                       subTotal: cartController.totalPrice,
                       tax: cartController.totalTax,
                       shippingCharge: isDelivery == false
@@ -730,11 +699,12 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                           : (cartController.productShippingCharge +
                                   cartController.shippingAreaCost.value)
                               .toString(),
-                      discount: couponController.applyCouponStatus.value == false
-                          ? 0
-                          : couponController
-                                  .applyCouponModel.value.data?.convertDiscount ??
-                              "0",
+                      discount:
+                          couponController.applyCouponStatus.value == false
+                              ? 0
+                              : couponController.applyCouponModel.value.data
+                                      ?.convertDiscount ??
+                                  "0",
                       total: cartController.totalPrice > 0 &&
                               couponController.applyCouponStatus.value == true
                           ? ((cartController.totalPrice +
@@ -755,7 +725,8 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                       cartController.shippingAreaCost.value)),
                       onTap: () {
                         if (isDelivery == true) {
-                          if (showAddressController.selectedAddressIndex.value ==
+                          if (showAddressController
+                                  .selectedAddressIndex.value ==
                               -1) {
                             customSnackbar(
                                 "ERROR".tr,
@@ -779,7 +750,6 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                       buttonText: "Save & Pay".tr,
                     );
                   }),
-          
                   SizedBox(
                     height: 20.h,
                   ),

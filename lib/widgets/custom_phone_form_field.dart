@@ -25,12 +25,13 @@ class _CustomPhoneFormField extends State<CustomPhoneFormField> {
             fontSize: 16.sp,
             fontWeight: FontWeight.w500),
         controller: widget.phoneController,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         cursorColor: AppColor.textColor,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.zero,
           prefixIcon: SizedBox(
-            width: 85.w,
+            width: 50.w,
             child: widget.prefix,
           ),
           border: OutlineInputBorder(

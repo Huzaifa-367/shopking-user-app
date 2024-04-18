@@ -1,14 +1,16 @@
+import 'package:shopperz/data/model/profile_address_model.dart';
+
 class OrderDetailsModel {
   Data? data;
 
   OrderDetailsModel({this.data});
 
   OrderDetailsModel.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -39,7 +41,7 @@ class Data {
   int? active;
   bool? returnAndRefund;
   User? user;
-  List<OrderAddress>? orderAddress;
+  List<AddressModel>? orderAddress;
   OutletAddress? outletAddress;
   List<OrderProducts>? orderProducts;
 
@@ -92,60 +94,58 @@ class Data {
     source = json['source'];
     active = json['active'];
     returnAndRefund = json['return_and_refund'];
-    user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    user = json['user'] != null ? User.fromJson(json['user']) : null;
     if (json['order_address'] != null) {
-      orderAddress = <OrderAddress>[];
+      orderAddress = <AddressModel>[];
       json['order_address'].forEach((v) {
-        orderAddress!.add(new OrderAddress.fromJson(v));
+        orderAddress!.add(AddressModel.fromJson(v));
       });
     }
     outletAddress = json['outlet_address'] != null
-        ? new OutletAddress.fromJson(json['outlet_address'])
+        ? OutletAddress.fromJson(json['outlet_address'])
         : null;
     if (json['order_products'] != null) {
       orderProducts = <OrderProducts>[];
       json['order_products'].forEach((v) {
-        orderProducts!.add(new OrderProducts.fromJson(v));
+        orderProducts!.add(OrderProducts.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['order_serial_no'] = this.orderSerialNo;
-    data['user_id'] = this.userId;
-    data['subtotal_currency_price'] = this.subtotalCurrencyPrice;
-    data['tax_currency_price'] = this.taxCurrencyPrice;
-    data['discount_currency_price'] = this.discountCurrencyPrice;
-    data['total_currency_price'] = this.totalCurrencyPrice;
-    data['total_amount_price'] = this.totalAmountPrice;
-    data['shipping_charge_currency_price'] = this.shippingChargeCurrencyPrice;
-    data['order_type'] = this.orderType;
-    data['order_date'] = this.orderDate;
-    data['order_time'] = this.orderTime;
-    data['order_datetime'] = this.orderDatetime;
-    data['payment_method'] = this.paymentMethod;
-    data['payment_method_name'] = this.paymentMethodName;
-    data['payment_status'] = this.paymentStatus;
-    data['status'] = this.status;
-    data['reason'] = this.reason;
-    data['source'] = this.source;
-    data['active'] = this.active;
-    data['return_and_refund'] = this.returnAndRefund;
-    if (this.user != null) {
-      data['user'] = this.user!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['order_serial_no'] = orderSerialNo;
+    data['user_id'] = userId;
+    data['subtotal_currency_price'] = subtotalCurrencyPrice;
+    data['tax_currency_price'] = taxCurrencyPrice;
+    data['discount_currency_price'] = discountCurrencyPrice;
+    data['total_currency_price'] = totalCurrencyPrice;
+    data['total_amount_price'] = totalAmountPrice;
+    data['shipping_charge_currency_price'] = shippingChargeCurrencyPrice;
+    data['order_type'] = orderType;
+    data['order_date'] = orderDate;
+    data['order_time'] = orderTime;
+    data['order_datetime'] = orderDatetime;
+    data['payment_method'] = paymentMethod;
+    data['payment_method_name'] = paymentMethodName;
+    data['payment_status'] = paymentStatus;
+    data['status'] = status;
+    data['reason'] = reason;
+    data['source'] = source;
+    data['active'] = active;
+    data['return_and_refund'] = returnAndRefund;
+    if (user != null) {
+      data['user'] = user!.toJson();
     }
-    if (this.orderAddress != null) {
-      data['order_address'] =
-          this.orderAddress!.map((v) => v.toJson()).toList();
+    if (orderAddress != null) {
+      data['order_address'] = orderAddress!.map((v) => v.toJson()).toList();
     }
-    if (this.outletAddress != null) {
-      data['outlet_address'] = this.outletAddress!.toJson();
+    if (outletAddress != null) {
+      data['outlet_address'] = outletAddress!.toJson();
     }
-    if (this.orderProducts != null) {
-      data['order_products'] =
-          this.orderProducts!.map((v) => v.toJson()).toList();
+    if (orderProducts != null) {
+      data['order_products'] = orderProducts!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -198,89 +198,20 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['phone'] = this.phone;
-    data['email'] = this.email;
-    data['username'] = this.username;
-    data['balance'] = this.balance;
-    data['currency_balance'] = this.currencyBalance;
-    data['image'] = this.image;
-    data['role_id'] = this.roleId;
-    data['country_code'] = this.countryCode;
-    data['order'] = this.order;
-    data['create_date'] = this.createDate;
-    data['update_date'] = this.updateDate;
-    return data;
-  }
-}
-
-class OrderAddress {
-  int? id;
-  int? userId;
-  int? addressType;
-  String? fullName;
-  String? email;
-  String? countryCode;
-  String? phone;
-  String? address;
-  String? country;
-  String? state;
-  String? city;
-  String? zipCode;
-  String? latitude;
-  String? longitude;
-
-  OrderAddress(
-      {this.id,
-      this.userId,
-      this.addressType,
-      this.fullName,
-      this.email,
-      this.countryCode,
-      this.phone,
-      this.address,
-      this.country,
-      this.state,
-      this.city,
-      this.zipCode,
-      this.latitude,
-      this.longitude});
-
-  OrderAddress.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    userId = json['user_id'];
-    addressType = json['address_type'];
-    fullName = json['full_name'];
-    email = json['email'];
-    countryCode = json['country_code'];
-    phone = json['phone'];
-    address = json['address'];
-    country = json['country'];
-    state = json['state'];
-    city = json['city'];
-    zipCode = json['zip_code'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['address_type'] = this.addressType;
-    data['full_name'] = this.fullName;
-    data['email'] = this.email;
-    data['country_code'] = this.countryCode;
-    data['phone'] = this.phone;
-    data['address'] = this.address;
-    data['country'] = this.country;
-    data['state'] = this.state;
-    data['city'] = this.city;
-    data['zip_code'] = this.zipCode;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['phone'] = phone;
+    data['email'] = email;
+    data['username'] = username;
+    data['balance'] = balance;
+    data['currency_balance'] = currencyBalance;
+    data['image'] = image;
+    data['role_id'] = roleId;
+    data['country_code'] = countryCode;
+    data['order'] = order;
+    data['create_date'] = createDate;
+    data['update_date'] = updateDate;
     return data;
   }
 }
@@ -329,19 +260,19 @@ class OutletAddress {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['phone'] = this.phone;
-    data['country_code'] = this.countryCode;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    data['city'] = this.city;
-    data['state'] = this.state;
-    data['zip_code'] = this.zipCode;
-    data['address'] = this.address;
-    data['status'] = this.status;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['phone'] = phone;
+    data['country_code'] = countryCode;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
+    data['city'] = city;
+    data['state'] = state;
+    data['zip_code'] = zipCode;
+    data['address'] = address;
+    data['status'] = status;
     return data;
   }
 }
@@ -432,33 +363,33 @@ class OrderProducts {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['order_id'] = this.orderId;
-    data['product_id'] = this.productId;
-    data['product_name'] = this.productName;
-    data['product_image'] = this.productImage;
-    data['product_slug'] = this.productSlug;
-    data['category_name'] = this.categoryName;
-    data['price'] = this.price;
-    data['currency_price'] = this.currencyPrice;
-    data['quantity'] = this.quantity;
-    data['order_quantity'] = this.orderQuantity;
-    data['discount'] = this.discount;
-    data['discount_currency_price'] = this.discountCurrencyPrice;
-    data['tax'] = this.tax;
-    data['tax_currency'] = this.taxCurrency;
-    data['subtotal'] = this.subtotal;
-    data['total'] = this.total;
-    data['subtotal_currency_price'] = this.subtotalCurrencyPrice;
-    data['total_currency_price'] = this.totalCurrencyPrice;
-    data['status'] = this.status;
-    data['variation_names'] = this.variationNames;
-    data['product_user_review'] = this.productUserReview;
-    data['product_user_review_id'] = this.productUserReviewId;
-    data['is_refundable'] = this.isRefundable;
-    data['has_variation'] = this.hasVariation;
-    data['variation_id'] = this.variationId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['order_id'] = orderId;
+    data['product_id'] = productId;
+    data['product_name'] = productName;
+    data['product_image'] = productImage;
+    data['product_slug'] = productSlug;
+    data['category_name'] = categoryName;
+    data['price'] = price;
+    data['currency_price'] = currencyPrice;
+    data['quantity'] = quantity;
+    data['order_quantity'] = orderQuantity;
+    data['discount'] = discount;
+    data['discount_currency_price'] = discountCurrencyPrice;
+    data['tax'] = tax;
+    data['tax_currency'] = taxCurrency;
+    data['subtotal'] = subtotal;
+    data['total'] = total;
+    data['subtotal_currency_price'] = subtotalCurrencyPrice;
+    data['total_currency_price'] = totalCurrencyPrice;
+    data['status'] = status;
+    data['variation_names'] = variationNames;
+    data['product_user_review'] = productUserReview;
+    data['product_user_review_id'] = productUserReviewId;
+    data['is_refundable'] = isRefundable;
+    data['has_variation'] = hasVariation;
+    data['variation_id'] = variationId;
     return data;
   }
 }

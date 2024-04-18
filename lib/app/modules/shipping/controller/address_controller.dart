@@ -24,23 +24,38 @@ class AddressController extends GetxController {
 
   final zipTextController = TextEditingController();
   final streetTextController = TextEditingController();
+  final houseTextController = TextEditingController();
+  final floorTextController = TextEditingController();
 
   ProfileController profile = Get.put(ProfileController());
 
   final addressModel = AddressModel().obs;
   final isLoading = false.obs;
+  getFloorSuffix(int floor) {
+    if (floor == 1) {
+      return 'st';
+    } else if (floor == 2) {
+      return 'nd';
+    } else if (floor == 3) {
+      return 'rd';
+    } else {
+      return 'th';
+    }
+  }
 
   submitAddress() async {
     isLoading(true);
     final response = await RemoteServices().submitAddress(
-      fullName: nameTextController.text,
+      fullName: nameTextController.text.trim(),
       countryCode: countryCode,
       phone: phoneTextController.text,
       streetAddress: streetTextController.text,
       country: country.value,
       city: city.value,
       email: emailTextController.text,
-      zip: zipTextController.text,
+      zip: zipTextController.text.trim(),
+      house_no: houseTextController.text.trim(),
+      floor_no: floorTextController.text.trim(),
       state: state.value,
     );
 
@@ -74,6 +89,8 @@ class AddressController extends GetxController {
       "state": state.value,
       "city": city.value,
       "zip_code": zipTextController.text,
+      "house_no": houseTextController.text.trim(),
+      "floor_no": floorTextController.text.trim(),
       "latitude": "",
       "longitude": "",
     };

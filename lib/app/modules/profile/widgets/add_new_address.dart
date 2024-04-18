@@ -84,77 +84,73 @@ class _AddNewAddressDialogState extends State<AddNewAddressDialog> {
                         SizedBox(height: 4.h),
                         CustomFormField(
                           controller: addressController.emailTextController,
-                          validator: (value){
-                            RegExp regExp = RegExp(regularExpressionEmail);
-                            if(value!.isNotEmpty)
-                            {
-                              if(!regExp.hasMatch(value))
-                              {
-                                return 'Enter Valid Email Address'.tr;
-                              }
-                            }
-                            return null;
-                          },
+                          validator: (phone) => ValidationRules().email(phone),
                         ),
                         SizedBox(height: 10.h),
                         FormFieldTitle(title: "Phone".tr),
                         SizedBox(height: 4.h),
                         CustomPhoneFormField(
-                          phoneController: addressController.phoneTextController,
-                          validator: (phone) => ValidationRules().normal(phone),
+                          phoneController:
+                              addressController.phoneTextController,
+                          validator: (phone) => ValidationRules().phone(phone),
                           prefix: Padding(
-                            padding:  EdgeInsets.only(left: 10.w),
+                            padding: EdgeInsets.only(left: 10.w),
                             child: PopupMenuButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10.r),
-                                  ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10.r),
                                 ),
-                                position: PopupMenuPosition.under,
-                                itemBuilder: (ctx) => List.generate(
-                                    auth.countryCodeModel!.data!.length,
-                                    (index) => PopupMenuItem(
-                                      height: 32.h,
-                                          onTap: () async {
-                                            setState(() {
-                                              addressController.countryCode = auth.countryCodeModel!.data![index].callingCode.toString();
-                                            });
-                                          },
-                                          child: Text(
-                                            auth.countryCodeModel!.data![index].callingCode.toString(),
-                                            style: GoogleFonts.urbanist(
-                                                color: AppColor.textColor,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 16.sp),
-                                          ),
-                                        )),
+                              ),
+                              position: PopupMenuPosition.under,
+                              itemBuilder: (ctx) => List.generate(
+                                  auth.countryCodeModel!.data!.length,
+                                  (index) => PopupMenuItem(
+                                        height: 32.h,
+                                        onTap: () async {
+                                          setState(() {
+                                            addressController.countryCode = auth
+                                                .countryCodeModel!
+                                                .data![index]
+                                                .callingCode
+                                                .toString();
+                                          });
+                                        },
+                                        child: Text(
+                                          auth.countryCodeModel!.data![index]
+                                              .callingCode
+                                              .toString(),
+                                          style: GoogleFonts.urbanist(
+                                              color: AppColor.textColor,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 16.sp),
+                                        ),
+                                      )),
                               child: Row(
-                                    children: [
-                                      Text(
-                                        addressController.countryCode,
-                                        style: GoogleFonts.urbanist(
-                                            color: AppColor.textColor,
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.w500
-                                          ),
-                                      ),
-                                      SizedBox(
-                                        width: 5.w,
-                                      ),
-                                      SvgPicture.asset(SvgIcon.down)
-                                    ],
+                                children: [
+                                  Text(
+                                    addressController.countryCode,
+                                    style: GoogleFonts.urbanist(
+                                        color: AppColor.textColor,
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500),
                                   ),
+                                  // SizedBox(
+                                  //   width: 5.w,
+                                  // ),
+                                  // SvgPicture.asset(SvgIcon.down)
+                                ],
+                              ),
                             ),
                           ),
                         ),
                         SizedBox(height: 10.h),
                         FormFieldTitle(title: "Address".tr),
                         SizedBox(height: 4.h),
-                        
                         CSCPicker(
+                          countryFilter: const [CscCountry.Pakistan],
                           flagState: CountryFlag.DISABLE,
+                          // defaultCountry: CscCountry.Pakistan,
                           onCountryChanged: (country) {
-                            
                             addressController.country.value = country;
                           },
                           onCityChanged: (city) {
@@ -163,70 +159,157 @@ class _AddNewAddressDialogState extends State<AddNewAddressDialog> {
                           onStateChanged: (state) {
                             addressController.state.value = state ?? "";
                           },
-                          selectedItemStyle:  GoogleFonts.urbanist(
+                          selectedItemStyle: GoogleFonts.urbanist(
                               color: AppColor.textColor,
                               fontWeight: FontWeight.w500,
                               fontSize: 16.sp),
-                        
-
                           dropdownDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(8.r)),
-                          color: AppColor.whiteColor,
-                          border:
-                          Border.all(color: AppColor.inactiveColor, width: 1.w)),
-
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.r)),
+                              color: AppColor.whiteColor,
+                              border: Border.all(
+                                  color: AppColor.inactiveColor, width: 1.w)),
                           disabledDropdownDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(8.r)),
-                          color: AppColor.whiteColor,
-                          border:
-                          Border.all(color: AppColor.inactiveColor, width: 1.w)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.r)),
+                              color: AppColor.whiteColor,
+                              border: Border.all(
+                                  color: AppColor.inactiveColor, width: 1.w)),
                         ),
                         SizedBox(height: 10.h),
-                        FormFieldTitle(title: "Zip Code".tr),
-                        SizedBox(height: 4.h),
-                        CustomFormField(
-                          controller: addressController.zipTextController,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: 100,
+                              child: Column(
+                                children: [
+                                  FormFieldTitle(title: "Zip Code".tr),
+                                  SizedBox(height: 4.h),
+                                  CustomFormField(
+                                    controller:
+                                        addressController.zipTextController,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: 80,
+                              child: Column(
+                                children: [
+                                  FormFieldTitle(title: "House No.".tr),
+                                  SizedBox(height: 4.h),
+                                  CustomFormField(
+                                    initialValue: 'EX: 02',
+                                    controller:
+                                        addressController.houseTextController,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: 80,
+                              child: Column(
+                                children: [
+                                  FormFieldTitle(title: "Floor No.".tr),
+                                  SizedBox(height: 4.h),
+                                  PopupMenuButton<String>(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10.r),
+                                      ),
+                                    ),
+                                    position: PopupMenuPosition.under,
+                                    itemBuilder: (ctx) => List.generate(
+                                      20,
+                                      (index) {
+                                        final floor = index + 1;
+                                        final suffix = addressController
+                                            .getFloorSuffix(floor);
+                                        return PopupMenuItem(
+                                          height: 32.h,
+                                          onTap: () {
+                                            setState(() {
+                                              addressController
+                                                  .floorTextController
+                                                  .text = floor.toString();
+                                            });
+                                          },
+                                          child: Text(
+                                            '$floor$suffix',
+                                            style: GoogleFonts.urbanist(
+                                              color: AppColor.textColor,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 16.sp,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          addressController
+                                              .floorTextController.text,
+                                          style: GoogleFonts.urbanist(
+                                            color: AppColor.textColor,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 5.w,
+                                        ),
+                                        SvgPicture.asset(SvgIcon.down),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(height: 10.h),
                         FormFieldTitle(title: "Street Address".tr),
                         SizedBox(height: 4.h),
                         CustomFormField(
                           controller: addressController.streetTextController,
-                          validator: (address) => ValidationRules().normal(address),
+                          validator: (address) =>
+                              ValidationRules().normal(address),
                         ),
                         SizedBox(height: 24.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SecondaryButton2(
-                                      height: 48.h,
-                                      width: 158.w,
-                                      text: "Add Address".tr,
-                                      buttonColor: AppColor.primaryColor,
-                                      textColor: AppColor.whiteColor,
-                                      onTap: () async {
-                                        if (addressController.formkey.currentState!
-                                            .validate()) {
-                                          if (box.read("token") != null) {
-                                            await addressController.submitAddress();
-                                            await showAddressController
-                                                .showAdresses();
-                                            profile.getAddress();
-                                          } else {
-                                            Get.off(() => const SignInScreen());
-                                          }
-                                        }
-                                      }),
-                            SecondaryButton2(
                               height: 48.h,
                               width: 114.w,
                               text: "Cancel".tr,
-                              buttonColor: AppColor.cartColor,
+                              buttonColor: AppColor.borderColor,
                               textColor: AppColor.textColor,
                               onTap: () {
                                 Get.back();
                               },
-                            )
+                            ),
+                            SecondaryButton2(
+                                height: 48.h,
+                                width: 158.w,
+                                text: "Add Address".tr,
+                                buttonColor: AppColor.primaryColor,
+                                textColor: AppColor.whiteColor,
+                                onTap: () async {
+                                  if (addressController.formkey.currentState!
+                                      .validate()) {
+                                    if (box.read("token") != null) {
+                                      await addressController.submitAddress();
+                                      await showAddressController
+                                          .showAdresses();
+                                      profile.getAddress();
+                                    } else {
+                                      Get.off(() => const SignInScreen());
+                                    }
+                                  }
+                                }),
                           ],
                         ),
                         SizedBox(height: 20.h),
@@ -238,10 +321,9 @@ class _AddNewAddressDialogState extends State<AddNewAddressDialog> {
             ),
           ),
         ),
-        Obx(
-          () => addressController.isLoading.value
-              ? LoaderCircle()
-              : SizedBox())
+        Obx(() => addressController.isLoading.value
+            ? const LoaderCircle()
+            : const SizedBox())
       ],
     );
   }

@@ -5,26 +5,29 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopperz/app/modules/profile/widgets/address_delete_widget.dart';
 import 'package:shopperz/app/modules/profile/widgets/edit_address.dart';
+import 'package:shopperz/app/modules/shipping/controller/address_controller.dart';
 import 'package:shopperz/config/theme/app_color.dart';
 import 'package:shopperz/data/model/profile_address_model.dart';
 import 'package:shopperz/utils/svg_icon.dart';
 import 'package:shopperz/widgets/textwidget.dart';
 
 class AddressWidget extends StatefulWidget {
-  const AddressWidget({super.key, this.address});
-  final Data? address;
+  const AddressWidget({super.key, required this.address});
+  final AddressModel? address;
 
   @override
   State<AddressWidget> createState() => _AddressWidgetState();
 }
 
 class _AddressWidgetState extends State<AddressWidget> {
+  AddressController addressController = Get.put(AddressController());
   String address = '';
-
+  String floor = '';
   @override
   void initState() {
+    floor = addressController.getFloorSuffix(widget.address!.floor_no!);
     address =
-        '${widget.address!.city.toString() != '' ? '${widget.address!.city}, ' : ''} ${widget.address!.state.toString() != '' ? '${widget.address!.state}, ' : ''} ${widget.address!.country.toString() != '' ? '${widget.address!.country}, ' : ''} ${widget.address!.zipCode.toString() != '' ? widget.address!.zipCode.toString() : ''}'
+        '${widget.address!.house_no.toString() != '' ? 'House No: ${widget.address!.house_no}, ' : ''} ${widget.address!.floor_no.toString() != '' ? 'Floor No: ${widget.address!.floor_no}$floor, ' : ''} ${widget.address!.address.toString() != '' ? '${widget.address!.address}, ' : ''}${widget.address!.city.toString() != '' ? '${widget.address!.city}, ' : ''} ${widget.address!.state.toString() != '' ? '${widget.address!.state}, ' : ''} ${widget.address!.country.toString() != '' ? '${widget.address!.country}, ' : ''} ${widget.address!.zipCode.toString() != '' ? 'ZipCode: ${widget.address!.zipCode}, ' : ''}'
             .replaceAll('', '');
     super.initState();
   }
@@ -44,6 +47,8 @@ class _AddressWidgetState extends State<AddressWidget> {
         phone: widget.address!.phone.toString(),
         state: widget.address!.state.toString(),
         zip: widget.address!.zipCode.toString(),
+        house_no: widget.address!.house_no.toString(),
+        floor_no: widget.address!.floor_no.toString(),
       ),
     ));
   }
@@ -114,18 +119,18 @@ class _AddressWidgetState extends State<AddressWidget> {
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w400,
                   ),
-                  maxLines: 2,
+                  maxLines: 3,
                   overflow: TextOverflow.clip,
                 ),
-                SizedBox(
-                  height: 8.h,
-                ),
-                TextWidget(
-                  text: widget.address!.address.toString(),
-                  color: AppColor.textColor,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400,
-                ),
+                // SizedBox(
+                //   height: 8.h,
+                // ),
+                // TextWidget(
+                //   text: widget.address!.address.toString(),
+                //   color: AppColor.textColor,
+                //   fontSize: 12.sp,
+                //   fontWeight: FontWeight.w400,
+                // ),
               ],
             ),
           ),

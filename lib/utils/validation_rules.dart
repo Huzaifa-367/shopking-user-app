@@ -13,10 +13,15 @@ class ValidationRules {
     RegExp regExp = RegExp(regularExpressionEmail);
     if (value == null || value.isEmpty) {
       return "Email is required";
+    } else if (value.contains('@')) {
+      if (!value.endsWith('@gmail.com') &&
+          !value.endsWith('@yahoo.com') &&
+          !value.endsWith('@hotmail.com') &&
+          !value.endsWith('@outlook.com')) {
+        return 'Unsupported email provider';
+      }
     } else if (!regExp.hasMatch(value)) {
       return 'Enter Valid Email Address'.tr;
-    } else if (!value.contains('@')) {
-      return "Enter a valid email please";
     } else {
       return null;
     }
@@ -45,6 +50,8 @@ class ValidationRules {
     RegExp regExp = RegExp(regularExpressionphone);
     if (value == null || value.isEmpty) {
       return "Phone number is required";
+    } else if (!RegExp(r'^3[0-7][0-9]').hasMatch(value)) {
+      return 'Dail code is not supported.';
     } else if (!regExp.hasMatch(value)) {
       return 'Enter Valid phone number';
     } else {

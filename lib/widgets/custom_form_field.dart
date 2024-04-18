@@ -4,12 +4,21 @@ import 'package:google_fonts/google_fonts.dart';
 import '../config/theme/app_color.dart';
 
 class CustomFormField extends StatelessWidget {
-  const CustomFormField(
-      {super.key, this.controller, this.validator, this.obsecure, this.keyboardType});
+  const CustomFormField({
+    super.key,
+    this.controller,
+    this.validator,
+    this.obsecure,
+    this.keyboardType,
+    this.prefix,
+    this.initialValue,
+  });
 
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final bool? obsecure;
+  final Widget? prefix;
+  final String? initialValue;
   final TextInputType? keyboardType;
 
   @override
@@ -17,21 +26,27 @@ class CustomFormField extends StatelessWidget {
     return SizedBox(
       child: TextFormField(
         style: GoogleFonts.urbanist(
-            color: AppColor.textColor,
-            fontWeight: FontWeight.w500,
-            fontSize: 16.sp),
+          color: AppColor.textColor,
+          fontWeight: FontWeight.w500,
+          fontSize: 16.sp,
+        ),
         autovalidateMode: AutovalidateMode.onUserInteraction,
         obscureText: obsecure ?? false,
+        initialValue: controller == null ? initialValue : null,
         cursorColor: AppColor.textColor,
         controller: controller,
         keyboardType: keyboardType,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.zero,
-          prefix: SizedBox(
-            width: 10.w,
-          ),
+          hintText: initialValue,
+          prefix: prefix == null
+              ? SizedBox(width: 10.w)
+              : SizedBox(
+                  width: 50.w,
+                  child: prefix,
+                ),
           border: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppColor.inactiveColor), 
+            borderSide: const BorderSide(color: AppColor.inactiveColor),
             borderRadius: BorderRadius.circular(8.r),
           ),
           enabledBorder: OutlineInputBorder(
@@ -43,9 +58,10 @@ class CustomFormField extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.r),
           ),
           hintStyle: GoogleFonts.urbanist(
-                  color: AppColor.textColor,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16.sp),
+            color: AppColor.textColor,
+            fontWeight: FontWeight.w500,
+            fontSize: 16.sp,
+          ),
         ),
         validator: validator,
       ),

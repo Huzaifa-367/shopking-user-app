@@ -172,55 +172,56 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     ValidationRules().phone(phone),
                                 prefix: Padding(
                                   padding: EdgeInsets.only(left: 10.w),
-                                  child: PopupMenuButton(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10.r),
+                                  // child: PopupMenuButton(
+                                  //   shape: RoundedRectangleBorder(
+                                  //     borderRadius: BorderRadius.all(
+                                  //       Radius.circular(10.r),
+                                  //     ),
+                                  //   ),
+                                  //   position: PopupMenuPosition.under,
+                                  //   itemBuilder: (ctx) => List.generate(
+                                  //       authController
+                                  //           .countryCodeModel!.data!.length,
+                                  //       (index) => PopupMenuItem(
+                                  //             height: 32.h,
+                                  //             onTap: () async {
+                                  //               setState(() {
+                                  //                 authController.countryCode =
+                                  //                     authController
+                                  //                         .countryCodeModel!
+                                  //                         .data![index]
+                                  //                         .callingCode
+                                  //                         .toString();
+                                  //               });
+                                  //             },
+                                  //             child: Text(
+                                  //               authController.countryCodeModel!
+                                  //                   .data![index].callingCode
+                                  //                   .toString(),
+                                  //               style: GoogleFonts.urbanist(
+                                  //                   color: AppColor.textColor,
+                                  //                   fontWeight: FontWeight.w500,
+                                  //                   fontSize: 16.sp),
+                                  //             ),
+                                  //           )),
+
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        authController.countryCode,
+                                        style: GoogleFonts.urbanist(
+                                            color: AppColor.textColor,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w500),
                                       ),
-                                    ),
-                                    position: PopupMenuPosition.under,
-                                    itemBuilder: (ctx) => List.generate(
-                                        authController
-                                            .countryCodeModel!.data!.length,
-                                        (index) => PopupMenuItem(
-                                              height: 32.h,
-                                              onTap: () async {
-                                                setState(() {
-                                                  authController.countryCode =
-                                                      authController
-                                                          .countryCodeModel!
-                                                          .data![index]
-                                                          .callingCode
-                                                          .toString();
-                                                });
-                                              },
-                                              child: Text(
-                                                authController.countryCodeModel!
-                                                    .data![index].callingCode
-                                                    .toString(),
-                                                style: GoogleFonts.urbanist(
-                                                    color: AppColor.textColor,
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 16.sp),
-                                              ),
-                                            )),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          authController.countryCode,
-                                          style: GoogleFonts.urbanist(
-                                              color: AppColor.textColor,
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        SizedBox(
-                                          width: 5.w,
-                                        ),
-                                        SvgPicture.asset(SvgIcon.down)
-                                      ],
-                                    ),
+                                      // SizedBox(
+                                      //   width: 5.w,
+                                      // ),
+                                      // SvgPicture.asset(SvgIcon.down)
+                                    ],
                                   ),
                                 ),
+                                // ),
                               ),
                               SizedBox(height: 20.h),
                               FormFieldTitle(title: "Password".tr),

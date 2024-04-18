@@ -272,6 +272,8 @@ class RemoteServices {
     String? state,
     String? city,
     String? zip,
+    String? floor_no,
+    String? house_no,
   }) async {
     final response = await server.postRequest(
         endPoint: ApiList.address,
@@ -286,6 +288,8 @@ class RemoteServices {
           "state": state,
           "city": city,
           "zip_code": zip,
+          "house_no": house_no,
+          "floor_no": floor_no,
           "latitude": "",
           "longitude": "",
         });

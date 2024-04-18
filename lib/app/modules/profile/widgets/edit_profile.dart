@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shopperz/app/modules/auth/controller/auth_controler.dart';
 import 'package:shopperz/app/modules/profile/controller/profile_controller.dart';
 import 'package:shopperz/utils/svg_icon.dart';
+import 'package:shopperz/utils/validation_rules.dart';
 import 'package:shopperz/widgets/appbar3.dart';
 import 'package:shopperz/widgets/loader/loader.dart';
 
@@ -33,6 +34,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   bool validate = false;
 
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -44,7 +46,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value:const SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.white,
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.dark,
@@ -57,7 +59,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           children: [
             Scaffold(
               backgroundColor: AppColor.primaryBackgroundColor,
-              appBar: const AppBarWidget3(text: '',),
+              appBar: const AppBarWidget3(
+                text: '',
+              ),
               body: SingleChildScrollView(
                   child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -83,71 +87,88 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           SizedBox(height: 4.h),
                           CustomFormField(
                             controller: profileController.nameController,
-                            validator: (value) => value!.isEmpty
-                                          ? 'PLEASE_TYPE_Name'.tr
-                                          : null,
+                            validator: (name) => name!.isEmpty
+                                ? 'PLEASE_TYPE_Name'.tr
+                                : ValidationRules().normal(name),
                           ),
                           SizedBox(height: 20.h),
                           FormFieldTitle(title: "Email".tr),
                           SizedBox(height: 4.h),
                           CustomFormField(
                             controller: profileController.emailController,
-                            validator: (value) => value!.isEmpty
-                                          ? 'PLEASE_TYPE_EMAIL'.tr
-                                          : null,
+                            validator: (email) => email!.isEmpty
+                                ? 'PLEASE_TYPE_EMAIL'.tr
+                                : ValidationRules().email(email),
                           ),
                           SizedBox(height: 20.h),
                           FormFieldTitle(title: "Phone".tr),
                           SizedBox(height: 4.h),
                           CustomPhoneFormField(
                             phoneController: profileController.phoneController,
-                            validator: (value) => value!.isEmpty
-                                          ? 'PLEASE_TYPE_PHONE_NUMBER'.tr
-                                          : null,
+                            validator: (phone) => phone!.isEmpty
+                                ? 'PLEASE_TYPE_PHONE_NUMBER'.tr
+                                : ValidationRules().phone(phone),
                             prefix: Padding(
-                                  padding:  EdgeInsets.only(left: 10.w),
-                                  child: PopupMenuButton(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10.r),
-                                        ),
-                                      ),
-                                      position: PopupMenuPosition.under,
-                                      itemBuilder: (ctx) => List.generate(
-                                          authController.countryCodeModel!.data!.length,
-                                          (index) => PopupMenuItem(
-                                            height: 32.h,
-                                                onTap: () async {
-                                                  setState(() {
-                                                    profileController.countryCodeController.text = authController.countryCodeModel!.data![index].callingCode.toString();
-                                                  });
-                                                },
-                                                child: Text(
-                                                  authController.countryCodeModel!.data![index].callingCode.toString(),
-                                                  style: GoogleFonts.urbanist(
-                                                      color: AppColor.textColor,
-                                                      fontWeight: FontWeight.w500,
-                                                      fontSize: 16.sp),
-                                                ),
-                                              )),
-                                    child: Row(
-                                          children: [
-                                            Text(
-                                              profileController.countryCodeController.text.toString() == '' ? authController.countryCode.toString() : profileController.countryCodeController.text.toString(),
-                                              style: GoogleFonts.urbanist(
-                                                  color: AppColor.textColor,
-                                                  fontSize: 16.sp,
-                                                  fontWeight: FontWeight.w500
-                                                ),
-                                            ),
-                                            SizedBox(
-                                              width: 5.w,
-                                            ),
-                                            SvgPicture.asset(SvgIcon.down)
-                                          ],
-                                        ),
+                              padding: EdgeInsets.only(left: 10.w),
+                              child: PopupMenuButton(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10.r),
                                   ),
                                 ),
+                                position: PopupMenuPosition.under,
+                                itemBuilder: (ctx) => List.generate(
+                                    authController
+                                        .countryCodeModel!.data!.length,
+                                    (index) => PopupMenuItem(
+                                          height: 32.h,
+                                          onTap: () async {
+                                            setState(() {
+                                              profileController
+                                                      .countryCodeController
+                                                      .text =
+                                                  authController
+                                                      .countryCodeModel!
+                                                      .data![index]
+                                                      .callingCode
+                                                      .toString();
+                                            });
+                                          },
+                                          child: Text(
+                                            authController.countryCodeModel!
+                                                .data![index].callingCode
+                                                .toString(),
+                                            style: GoogleFonts.urbanist(
+                                                color: AppColor.textColor,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16.sp),
+                                          ),
+                                        )),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      profileController
+                                                  .countryCodeController.text
+                                                  .toString() ==
+                                              ''
+                                          ? authController.countryCode
+                                              .toString()
+                                          : profileController
+                                              .countryCodeController.text
+                                              .toString(),
+                                      style: GoogleFonts.urbanist(
+                                          color: AppColor.textColor,
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    // SizedBox(
+                                    //   width: 5.w,
+                                    // ),
+                                    // SvgPicture.asset(SvgIcon.down)
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
                           SizedBox(height: 30.h),
                           PrimaryButton(
@@ -155,7 +176,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             width: 153.w,
                             onTap: () {
                               validateAndSave(context);
-                                      (context as Element).markNeedsBuild();
+                              (context as Element).markNeedsBuild();
                             },
                           ),
                         ],
@@ -166,8 +187,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               )),
             ),
             profileController.isLoading.value
-                  ? LoaderCircle()
-                  : SizedBox(),
+                ? const LoaderCircle()
+                : const SizedBox(),
           ],
         ),
       ),

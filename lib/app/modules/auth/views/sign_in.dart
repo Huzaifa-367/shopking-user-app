@@ -256,7 +256,9 @@ class _SignInScreenState extends State<SignInScreen> {
                                       swapController.isShowEmailField.value
                                           ? authController.signInWithEmail(
                                               email: emailController.text,
-                                              password: passController.text)
+                                              password: passController.text,
+                                              fromSignup: false,
+                                            )
                                           : authController.signInWithPhone(
                                               phone: phoneController.text,
                                               countryCode:

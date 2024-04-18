@@ -321,7 +321,8 @@ class AuthController extends GetxController {
             "SUCCESS".tr,
             jsonDecode(response.body)["message"].toString().tr,
             AppColor.success);
-        Get.offAll(() => const NavBarView());
+        signInWithEmail(email: email, password: password, fromSignup: true);
+        // Get.offAll(() => const NavBarView());
       } else {
         isLoading(false);
         customSnackbar("ERROR".tr,
@@ -411,7 +412,10 @@ class AuthController extends GetxController {
     }
   }
 
-  signInWithEmail({required String email, required String password}) async {
+  signInWithEmail(
+      {required String email,
+      required String password,
+      required bool fromSignup}) async {
     isLoading(true);
     try {
       final response = await AppServer().httpPost(
@@ -429,13 +433,15 @@ class AuthController extends GetxController {
         box.write("token", 'Bearer $token');
         box.write("isLogedIn", true);
         getSetting();
-        customSnackbar(
-            "SUCCESS".tr,
-            jsonDecode(response.body)["message"].toString().tr,
-            AppColor.success);
-        Future.delayed(const Duration(milliseconds: 10), () {
-          update();
-        });
+        if (!fromSignup) {
+          customSnackbar(
+              "SUCCESS".tr,
+              jsonDecode(response.body)["message"].toString().tr,
+              AppColor.success);
+          Future.delayed(const Duration(milliseconds: 10), () {
+            update();
+          });
+        }
         final navController = Get.put(NavbarController());
         Get.to(() => const NavBarView());
         navController.selectPage(0);
