@@ -10,7 +10,7 @@ PromotionModel promotionModelFromJson(String str) =>
 String promotionModelToJson(PromotionModel data) => json.encode(data.toJson());
 
 class PromotionModel {
-  final List<Datum>? data;
+  final List<promotionModel>? data;
 
   PromotionModel({
     this.data,
@@ -19,7 +19,8 @@ class PromotionModel {
   factory PromotionModel.fromJson(Map<String, dynamic> json) => PromotionModel(
         data: json["data"] == null
             ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+            : List<promotionModel>.from(
+                json["data"]!.map((x) => promotionModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,7 +30,7 @@ class PromotionModel {
       };
 }
 
-class Datum {
+class promotionModel {
   final int? id;
   final String? name;
   final String? slug;
@@ -38,7 +39,7 @@ class Datum {
   final String? cover;
   final String? preview;
 
-  Datum({
+  promotionModel({
     this.id,
     this.name,
     this.slug,
@@ -48,7 +49,7 @@ class Datum {
     this.preview,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory promotionModel.fromJson(Map<String, dynamic> json) => promotionModel(
         id: json["id"],
         name: json["name"],
         slug: json["slug"],

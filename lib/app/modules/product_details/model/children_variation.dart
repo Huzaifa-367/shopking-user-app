@@ -9,14 +9,14 @@ ChildrenVariationModel childrenVariationModelFromJson(String str) => ChildrenVar
 String childrenVariationModelToJson(ChildrenVariationModel data) => json.encode(data.toJson());
 
 class ChildrenVariationModel {
-    final List<Datum>? data;
+    final List<VariationModel>? data;
 
     ChildrenVariationModel({
         this.data,
     });
 
     factory ChildrenVariationModel.fromJson(Map<String, dynamic> json) => ChildrenVariationModel(
-        data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+        data: json["data"] == null ? [] : List<VariationModel>.from(json["data"]!.map((x) => VariationModel.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -24,7 +24,7 @@ class ChildrenVariationModel {
     };
 }
 
-class Datum {
+class VariationModel {
     final int? id;
     final int? productAttributeId;
     final int? productAttributeOptionId;
@@ -39,7 +39,7 @@ class Datum {
     final String? sku;
     final int? stock;
 
-    Datum({
+    VariationModel({
         this.id,
         this.productAttributeId,
         this.productAttributeOptionId,
@@ -55,7 +55,7 @@ class Datum {
         this.stock,
     });
 
-    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+    factory VariationModel.fromJson(Map<String, dynamic> json) => VariationModel(
         id: json["id"],
         productAttributeId: json["product_attribute_id"],
         productAttributeOptionId: json["product_attribute_option_id"],

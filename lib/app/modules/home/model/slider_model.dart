@@ -10,7 +10,7 @@ SliderModel sliderModelFromJson(String str) =>
 String sliderModelToJson(SliderModel data) => json.encode(data.toJson());
 
 class SliderModel {
-  final List<Datum>? data;
+  final List<SlideModel>? data;
 
   SliderModel({
     this.data,
@@ -19,7 +19,8 @@ class SliderModel {
   factory SliderModel.fromJson(Map<String, dynamic> json) => SliderModel(
         data: json["data"] == null
             ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+            : List<SlideModel>.from(
+                json["data"]!.map((x) => SlideModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,7 +30,7 @@ class SliderModel {
       };
 }
 
-class Datum {
+class SlideModel {
   final int? id;
   final String? title;
   final String? description;
@@ -37,7 +38,7 @@ class Datum {
   final String? image;
   final dynamic link;
 
-  Datum({
+  SlideModel({
     this.id,
     this.title,
     this.description,
@@ -46,7 +47,7 @@ class Datum {
     this.link,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory SlideModel.fromJson(Map<String, dynamic> json) => SlideModel(
         id: json["id"],
         title: json["title"],
         description: json["description"],

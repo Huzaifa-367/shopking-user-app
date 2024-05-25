@@ -10,7 +10,7 @@ import 'package:shopperz/app/modules/coupon/controller/coupon_controller.dart';
 import 'package:shopperz/app/modules/payment/controller/payment_controller.dart';
 import 'package:shopperz/app/modules/profile/widgets/add_new_address.dart';
 import 'package:shopperz/app/modules/profile/widgets/address_screen.dart';
-import 'package:shopperz/app/modules/profile/widgets/address_widget.dart';
+import 'package:shopperz/app/modules/shipping/widgets/outlet_address_widget.dart';
 import 'package:shopperz/app/modules/shipping/controller/show_address_controller.dart';
 import 'package:shopperz/app/modules/shipping/widgets/address_card.dart';
 import 'package:shopperz/main.dart';
@@ -116,8 +116,8 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                 children: [
                   Container(
                     height: 32.h,
-                    // width: 161.w,
-                    width: 83.w,
+                    width: 161.w,
+                    // width: 83.w,
                     decoration: BoxDecoration(
                         color: AppColor.selectDeliveyColor,
                         borderRadius: BorderRadius.circular(20.r)),
@@ -125,11 +125,11 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                       child: Row(
                         children: [
                           GestureDetector(
-                            // onTap: () {
-                            //   setState(() {
-                            //     isDelivery = true;
-                            //   });
-                            // },
+                            onTap: () {
+                              setState(() {
+                                isDelivery = true;
+                              });
+                            },
                             child: Container(
                               height: 32.h,
                               width: 83.w,
@@ -150,119 +150,135 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                               ),
                             ),
                           ),
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     setState(() {
-                          //       isDelivery = false;
-                          //     });
-                          //   },
-                          //   child: Container(
-                          //     height: 32.h,
-                          //     width: 78.w,
-                          //     decoration: BoxDecoration(
-                          //         color: isDelivery
-                          //             ? AppColor.selectDeliveyColor
-                          //             : AppColor.deliveryColor,
-                          //         borderRadius: BorderRadius.circular(20.r)),
-                          //     child: Center(
-                          //       child: TextWidget(
-                          //         text: 'Pick Up'.tr,
-                          //         color: isDelivery
-                          //             ? AppColor.deliveryColor
-                          //             : AppColor.whiteColor,
-                          //         fontSize: 14.sp,
-                          //         fontWeight: FontWeight.w600,
-                          //       ),
-                          //     ),
-                          //   ),
-                          // )
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isDelivery = false;
+                              });
+                            },
+                            child: Container(
+                              height: 32.h,
+                              width: 78.w,
+                              decoration: BoxDecoration(
+                                  color: isDelivery
+                                      ? AppColor.selectDeliveyColor
+                                      : AppColor.deliveryColor,
+                                  borderRadius: BorderRadius.circular(20.r)),
+                              child: Center(
+                                child: TextWidget(
+                                  text: 'Pick Up'.tr,
+                                  color: isDelivery
+                                      ? AppColor.deliveryColor
+                                      : AppColor.whiteColor,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 30.h,
+                    height: 20.h,
                   ),
                   isDelivery == false
                       ? Obx(
                           () => showAddressController.outlestModel.value.data ==
-                                  null
-                              ? const SizedBox()
+                                      null ||
+                                  showAddressController.outlestModel.value.data!
+                                          .first.status ==
+                                      10
+                              ? Center(
+                                  child: TextWidget(
+                                    text: 'Self Pickup Not Available',
+                                    color: AppColor.textColor,
+                                    fontSize: 13.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
                               : GestureDetector(
                                   onTap: () {
                                     showAddressController.selectedPickUp.value =
                                         !showAddressController
                                             .selectedPickUp.value;
                                   },
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount: showAddressController
-                                        .outlestModel.value.data!.length,
-                                    itemBuilder: (context, index) {
-                                      final outlet = showAddressController
-                                          .outlestModel.value.data![index];
-                                      return Padding(
-                                        padding:
-                                            EdgeInsets.symmetric(vertical: 4.h),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            showAddressController
-                                                .setoutletIndex(index);
-                                          },
-                                          child: Obx(
-                                            () => Container(
-                                              width: double.infinity,
-                                              decoration: BoxDecoration(
-                                                color: showAddressController
-                                                            .selectedOutletIndex
-                                                            .value ==
-                                                        index
-                                                    ? AppColor.primaryColor1
-                                                    : AppColor.addressColor,
-                                                border: Border.all(
-                                                    color: showAddressController
-                                                                .selectedOutletIndex
-                                                                .value ==
-                                                            index
-                                                        ? AppColor.primaryColor
-                                                        : Colors.transparent,
-                                                    width: 1.r),
-                                                borderRadius:
-                                                    BorderRadius.circular(12.r),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsets.all(12.r),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    SvgPicture.asset(
-                                                      showAddressController
+                                  child: SizedBox(
+                                    height: 110,
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: showAddressController
+                                          .outlestModel.value.data!.length,
+                                      itemBuilder: (context, index) {
+                                        final outlet = showAddressController
+                                            .outlestModel.value.data![index];
+                                        return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: 4.h,
+                                            horizontal: 4.h,
+                                          ),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              showAddressController
+                                                  .setoutletIndex(index);
+                                            },
+                                            child: Obx(
+                                              () => Container(
+                                                decoration: BoxDecoration(
+                                                  color: showAddressController
+                                                              .selectedOutletIndex
+                                                              .value ==
+                                                          index
+                                                      ? AppColor.primaryColor1
+                                                      : AppColor.addressColor,
+                                                  border: Border.all(
+                                                      color: showAddressController
                                                                   .selectedOutletIndex
                                                                   .value ==
                                                               index
-                                                          ? SvgIcon.radioActive
-                                                          : SvgIcon.radio,
-                                                      height: 16.h,
-                                                      width: 16.w,
-                                                    ),
-                                                    SizedBox(width: 16.w),
-                                                    // const AddressWidget(),
-                                                    AddressCard(
-                                                      address: outlet,
-                                                    ),
-                                                  ],
+                                                          ? AppColor
+                                                              .primaryColor
+                                                          : Colors.transparent,
+                                                      width: 1.r),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          12.r),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(12.r),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      SvgPicture.asset(
+                                                        showAddressController
+                                                                    .selectedOutletIndex
+                                                                    .value ==
+                                                                index
+                                                            ? SvgIcon
+                                                                .radioActive
+                                                            : SvgIcon.radio,
+                                                        height: 16.h,
+                                                        width: 16.w,
+                                                      ),
+                                                      SizedBox(width: 5.w),
+                                                      OutletAddressWidget(
+                                                        address: outlet,
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    },
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
                         )
@@ -296,113 +312,126 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                           ],
                         ),
                   SizedBox(
-                    height: 12.h,
+                    height: 5.h,
                   ),
                   box.read('isLogedIn') == false
-                      ? const Center(child: SizedBox())
+                      ? const Center(child: SizedBox.shrink())
                       : isDelivery == false
                           ? const SizedBox()
                           : Obx(
                               () => showAddressController
                                           .addressList.value.data ==
                                       null
-                                  ? const SizedBox()
-                                  : ListView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: showAddressController
-                                          .addressList.value.data?.length,
-                                      itemBuilder: (context, index) {
-                                        final address = showAddressController
-                                            .addressList.value.data;
-                                        return GestureDetector(
-                                          onTap: () {
-                                            showAddressController
-                                                .setSelectedAddressIndex(index);
-                                            cartController
-                                                .areaWiseShippingCal();
-                                          },
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 4.h),
-                                            child: Obx(
-                                              () => Container(
-                                                width: double.infinity,
-                                                decoration: BoxDecoration(
-                                                  color: showAddressController
-                                                              .selectedAddressIndex
-                                                              .value ==
-                                                          index
-                                                      ? AppColor.primaryColor1
-                                                      : AppColor.addressColor,
-                                                  border: Border.all(
+                                  ? const SizedBox.shrink()
+                                  : SizedBox(
+                                      height: 123,
+                                      child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          shrinkWrap: true,
+                                          itemCount: showAddressController
+                                              .addressList.value.data?.length,
+                                          itemBuilder: (context, index) {
+                                            final address =
+                                                showAddressController
+                                                    .addressList.value.data;
+                                            return GestureDetector(
+                                              onTap: () {
+                                                showAddressController
+                                                    .setSelectedAddressIndex(
+                                                        index);
+                                                cartController
+                                                    .areaWiseShippingCal();
+                                              },
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 4.h,
+                                                  horizontal: 4.h,
+                                                ),
+                                                child: Obx(
+                                                  () => Container(
+                                                    // width: 300,
+                                                    decoration: BoxDecoration(
                                                       color: showAddressController
                                                                   .selectedAddressIndex
                                                                   .value ==
                                                               index
                                                           ? AppColor
-                                                              .primaryColor
-                                                          : Colors.transparent,
-                                                      width: 1.r),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          12.r),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(12.r),
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      SvgPicture.asset(
-                                                        showAddressController
-                                                                    .selectedAddressIndex
-                                                                    .value ==
-                                                                index
-                                                            ? SvgIcon
-                                                                .radioActive
-                                                            : SvgIcon.radio,
-                                                        height: 16.h,
-                                                        width: 16.w,
+                                                              .primaryColor1
+                                                          : AppColor
+                                                              .addressColor,
+                                                      border: Border.all(
+                                                          color: showAddressController
+                                                                      .selectedAddressIndex
+                                                                      .value ==
+                                                                  index
+                                                              ? AppColor
+                                                                  .primaryColor
+                                                              : Colors
+                                                                  .transparent,
+                                                          width: 1.r),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12.r),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsets.all(12.r),
+                                                      child: Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          SvgPicture.asset(
+                                                            showAddressController
+                                                                        .selectedAddressIndex
+                                                                        .value ==
+                                                                    index
+                                                                ? SvgIcon
+                                                                    .radioActive
+                                                                : SvgIcon.radio,
+                                                            height: 16.h,
+                                                            width: 16.w,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 5.w,
+                                                          ),
+                                                          Obx(
+                                                            () => showAddressController
+                                                                        .addressList
+                                                                        .value
+                                                                        .data ==
+                                                                    null
+                                                                ? const Center(
+                                                                    child:
+                                                                        SizedBox())
+                                                                : AddressCard(
+                                                                    address:
+                                                                        address![
+                                                                            index],
+                                                                    fromcheckout:
+                                                                        true,
+                                                                  ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                      SizedBox(
-                                                        width: 12.w,
-                                                      ),
-                                                      Obx(
-                                                        () => showAddressController
-                                                                    .addressList
-                                                                    .value
-                                                                    .data ==
-                                                                null
-                                                            ? const Center(
-                                                                child:
-                                                                    SizedBox())
-                                                            : AddressCard(
-                                                                address:
-                                                                    address![
-                                                                        index],
-                                                              ),
-                                                      ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                        );
-                                      }),
+                                            );
+                                          }),
+                                    ),
                             ),
                   isDelivery == false
-                      ? const SizedBox()
+                      ? const SizedBox.shrink()
                       : SizedBox(
                           height: 26.h,
                         ),
                   isDelivery == false
-                      ? const SizedBox()
+                      ? const SizedBox.shrink()
                       : Row(
                           children: [
                             InkWell(
@@ -441,9 +470,9 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                       ? SizedBox(
                           height: 24.h,
                         )
-                      : const SizedBox(),
+                      : const SizedBox.shrink(),
                   isDelivery == false
-                      ? const SizedBox()
+                      ? const SizedBox.shrink()
                       : Obx(
                           () => Visibility(
                             visible: !showAddressController
@@ -474,98 +503,113 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                                     () => showAddressController.isLoading.value
                                         ? const Center(
                                             child: CircularProgressIndicator())
-                                        : ListView.builder(
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            shrinkWrap: true,
-                                            itemCount: showAddressController
-                                                .addressList.value.data?.length,
-                                            itemBuilder: (context, index) {
-                                              final address =
-                                                  showAddressController
-                                                      .addressList.value.data;
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  showAddressController
-                                                      .setSelectedBillingAddressIndex(
-                                                          index);
-                                                },
-                                                child: Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 4.h),
-                                                  child: Obx(
-                                                    () => Container(
-                                                      width: double.infinity,
-                                                      decoration: BoxDecoration(
-                                                        color: showAddressController
-                                                                    .selectedBillingAddressIndex
-                                                                    .value ==
-                                                                index
-                                                            ? AppColor
-                                                                .primaryColor1
-                                                            : AppColor
-                                                                .addressColor,
-                                                        border: Border.all(
+                                        : SizedBox(
+                                            height: 123,
+                                            child: ListView.builder(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                shrinkWrap: true,
+                                                itemCount: showAddressController
+                                                    .addressList
+                                                    .value
+                                                    .data
+                                                    ?.length,
+                                                itemBuilder: (context, index) {
+                                                  final address =
+                                                      showAddressController
+                                                          .addressList
+                                                          .value
+                                                          .data;
+                                                  return GestureDetector(
+                                                    onTap: () {
+                                                      showAddressController
+                                                          .setSelectedBillingAddressIndex(
+                                                              index);
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                        vertical: 4.h,
+                                                        horizontal: 4.h,
+                                                      ),
+                                                      child: Obx(
+                                                        () => Container(
+                                                          decoration:
+                                                              BoxDecoration(
                                                             color: showAddressController
                                                                         .selectedBillingAddressIndex
                                                                         .value ==
                                                                     index
                                                                 ? AppColor
-                                                                    .primaryColor
-                                                                : Colors
-                                                                    .transparent,
-                                                            width: 1.r),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(12.r),
-                                                      ),
-                                                      child: Padding(
-                                                        padding: EdgeInsets.all(
-                                                            12.r),
-                                                        child: Row(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            SvgPicture.asset(
-                                                              showAddressController
-                                                                          .selectedBillingAddressIndex
-                                                                          .value ==
-                                                                      index
-                                                                  ? SvgIcon
-                                                                      .radioActive
-                                                                  : SvgIcon
-                                                                      .radio,
-                                                              height: 16.h,
-                                                              width: 16.w,
+                                                                    .primaryColor1
+                                                                : AppColor
+                                                                    .addressColor,
+                                                            border: Border.all(
+                                                                color: showAddressController
+                                                                            .selectedBillingAddressIndex
+                                                                            .value ==
+                                                                        index
+                                                                    ? AppColor
+                                                                        .primaryColor
+                                                                    : Colors
+                                                                        .transparent,
+                                                                width: 1.r),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        12.r),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    12.r),
+                                                            child: Row(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                SvgPicture
+                                                                    .asset(
+                                                                  showAddressController
+                                                                              .selectedBillingAddressIndex
+                                                                              .value ==
+                                                                          index
+                                                                      ? SvgIcon
+                                                                          .radioActive
+                                                                      : SvgIcon
+                                                                          .radio,
+                                                                  height: 16.h,
+                                                                  width: 16.w,
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 12.w,
+                                                                ),
+                                                                Obx(
+                                                                  () => showAddressController
+                                                                              .addressList
+                                                                              .value
+                                                                              .data ==
+                                                                          null
+                                                                      ? const SizedBox()
+                                                                      : AddressCard(
+                                                                          address:
+                                                                              address![index],
+                                                                          fromcheckout:
+                                                                              true,
+                                                                        ),
+                                                                ),
+                                                              ],
                                                             ),
-                                                            SizedBox(
-                                                              width: 12.w,
-                                                            ),
-                                                            Obx(
-                                                              () => showAddressController
-                                                                          .addressList
-                                                                          .value
-                                                                          .data ==
-                                                                      null
-                                                                  ? const SizedBox()
-                                                                  : AddressCard(
-                                                                      address:
-                                                                          address![
-                                                                              index],
-                                                                    ),
-                                                            ),
-                                                          ],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ),
-                                              );
-                                            }),
+                                                  );
+                                                }),
+                                          ),
                                   ),
                                 ),
                               ],
@@ -573,7 +617,7 @@ class _ShippingInformationScreenState extends State<ShippingInformationScreen> {
                           ),
                         ),
                   isDelivery == false
-                      ? const SizedBox()
+                      ? const SizedBox.shrink()
                       : SizedBox(
                           height: 24.h,
                         ),

@@ -69,76 +69,84 @@ class _CartScreenState extends State<CartScreen> {
               leadingWidth: double.infinity,
             ),
           ),
-          body: Stack(
+          body: Column(
             children: [
-              Padding(
-                padding: EdgeInsets.only(top: 16.h, left: 16.w, right: 16.w),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Obx(
-                        () => cartController.cartItems.isEmpty
-                            ? Padding(
-                                padding: EdgeInsets.only(top: 60.h),
-                                child: Center(
-                                  child: Image.asset(
-                                    AppImages.emptyIcon,
-                                    height: 300.h,
-                                    width: 300.w,
-                                  ),
-                                ),
-                              )
-                            : ListView.builder(
-                                itemCount: cartController.cartItems.length,
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  final cartItem =
-                                      cartController.cartItems[index];
-                                  return Padding(
-                                    padding: EdgeInsets.only(top: 16.h),
-                                    child: Obx(
-                                      () => CartWidget(
-                                        productImage:
-                                            cartItem.product.data!.image,
-                                        title: cartItem.product.data!.name,
-                                        finalVariation:
-                                            cartItem.finalVariationString,
-                                        currentPrice: cartItem
-                                            .variationCurrencyPrice
-                                            .toString(),
-                                        discountPrice: cartItem
-                                            .variationOldCurrencyPrice
-                                            .toString(),
-                                        decrement: () {
-                                          cartController.decrementItem(
-                                              cartController.cartItems[index]);
-                                        },
-                                        isOffer: cartItem.product.data!.isOffer,
-                                        decrementIconvalue:
-                                            cartController.totalItems,
-                                        quantity: cartController
-                                            .cartItems[index].quantity
-                                            .toString(),
-                                        increment: () {
-                                          cartController.incrementItem(
-                                              cartController.cartItems[index]);
-                                        },
-                                        remove: () {
-                                          cartController.removeFromCart(
-                                              cartController.cartItems[index]);
-                                        },
-                                        stock: cartItem.stock,
-                                        incrementValue: cartItem.quantity.value,
-                                      ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.6,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 16.h, left: 16.w, right: 16.w),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Obx(
+                          () => cartController.cartItems.isEmpty
+                              ? Padding(
+                                  padding: EdgeInsets.only(top: 60.h),
+                                  child: Center(
+                                    child: Image.asset(
+                                      AppImages.emptyIcon,
+                                      height: 300.h,
+                                      width: 300.w,
                                     ),
-                                  );
-                                }),
-                      ),
-                      SizedBox(
-                        height: 164.h,
-                      )
-                    ],
+                                  ),
+                                )
+                              : ListView.builder(
+                                  itemCount: cartController.cartItems.length,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    final cartItem =
+                                        cartController.cartItems[index];
+                                    return Padding(
+                                      padding: EdgeInsets.only(top: 16.h),
+                                      child: Obx(
+                                        () => CartWidget(
+                                          productImage:
+                                              cartItem.product.data!.image,
+                                          title: cartItem.product.data!.name,
+                                          finalVariation:
+                                              cartItem.finalVariationString,
+                                          currentPrice: cartItem
+                                              .variationCurrencyPrice
+                                              .toString(),
+                                          discountPrice: cartItem
+                                              .variationOldCurrencyPrice
+                                              .toString(),
+                                          decrement: () {
+                                            cartController.decrementItem(
+                                                cartController
+                                                    .cartItems[index]);
+                                          },
+                                          isOffer:
+                                              cartItem.product.data!.isOffer,
+                                          decrementIconvalue:
+                                              cartController.totalItems,
+                                          quantity: cartController
+                                              .cartItems[index].quantity
+                                              .toString(),
+                                          increment: () {
+                                            cartController.incrementItem(
+                                                cartController
+                                                    .cartItems[index]);
+                                          },
+                                          remove: () {
+                                            cartController.removeFromCart(
+                                                cartController
+                                                    .cartItems[index]);
+                                          },
+                                          stock: cartItem.stock,
+                                          incrementValue:
+                                              cartItem.quantity.value,
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -147,69 +155,74 @@ class _CartScreenState extends State<CartScreen> {
                     ? Stack(
                         alignment: Alignment.bottomCenter,
                         children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              const DeviderWidget(),
-                              SizedBox(height: 16.h),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    TextWidget(
-                                      text: 'Subtotal'.tr,
-                                      color: AppColor.textColor,
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                    Obx(
-                                      () => TextWidget(
-                                        text:
-                                            '${authController.currency}${cartController.totalPrice.toStringAsFixed(2)}',
+                          Container(
+                            color: AppColor.whiteColor,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                const DeviderWidget(),
+                                SizedBox(height: 16.h),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 16.w),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      TextWidget(
+                                        text: 'Subtotal'.tr,
                                         color: AppColor.textColor,
                                         fontSize: 16.sp,
                                         fontWeight: FontWeight.w600,
                                       ),
-                                    )
-                                  ],
+                                      Obx(
+                                        () => TextWidget(
+                                          text:
+                                              '${authController.currency}${cartController.totalPrice.toStringAsFixed(2)}',
+                                          color: AppColor.textColor,
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 16.h),
-                              InkWell(
-                                onTap: () {
-                                  if (cartController.cartItems.isEmpty) {
-                                    customSnackbar(
-                                      "ERROR".tr,
-                                      "Your cart is empty",
-                                      AppColor.error,
-                                    );
-                                  } else {
-                                    Get.to(() => box.read("isLogedIn") != false
-                                        ? const ShippingInformationScreen()
-                                        : const SignInScreen());
-                                  }
-                                },
-                                child: const PrimaryButton(
-                                  text: 'Procced to Checkout',
+                                SizedBox(height: 16.h),
+                                InkWell(
+                                  onTap: () {
+                                    if (cartController.cartItems.isEmpty) {
+                                      customSnackbar(
+                                        "ERROR".tr,
+                                        "Your cart is empty",
+                                        AppColor.error,
+                                      );
+                                    } else {
+                                      Get.to(() => box.read("isLogedIn") !=
+                                              false
+                                          ? const ShippingInformationScreen()
+                                          : const SignInScreen());
+                                    }
+                                  },
+                                  child: const PrimaryButton(
+                                    text: 'Procced to Checkout',
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 12.h),
-                              TextWidget(
-                                text:
-                                    'Shipping, Taxes & Discount Calculate at Checkout',
-                                color: AppColor.textColor,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              SizedBox(height: 40.h),
-                            ],
+                                SizedBox(height: 12.h),
+                                TextWidget(
+                                  text:
+                                      'Shipping, Taxes & Discount Calculate at Checkout',
+                                  color: AppColor.textColor,
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                SizedBox(height: 40.h),
+                              ],
+                            ),
                           ),
                         ],
                       )
                     : const SizedBox.shrink(),
-              )
+              ),
             ],
           ),
         ),

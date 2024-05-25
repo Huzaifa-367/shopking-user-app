@@ -91,7 +91,9 @@ class OTPController extends GetxController {
             "SUCCESS".tr,
             jsonDecode(resonse.body)["message"].toString().tr,
             AppColor.success);
-        Get.to(() => ResetPasswordScreen());
+        Get.to(() => ResetPasswordScreen(
+              emailOrPhone: email,
+            ));
       } else {
         isLoading(false);
         customSnackbar("ERROR".tr,

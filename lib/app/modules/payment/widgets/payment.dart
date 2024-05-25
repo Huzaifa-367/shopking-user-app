@@ -56,7 +56,9 @@ class _PaymentWidgetState extends State<PaymentWidget> {
             height: 10.h,
           ),
           TextWidget(
-            text: widget.name.toString(),
+            text: widget.name.toString().toLowerCase() == 'credit'
+                ? 'Wallet'
+                : widget.name.toString(),
             color: AppColor.textColor,
             fontSize: 12.sp,
             fontWeight: FontWeight.w500,

@@ -12,8 +12,10 @@ import 'package:shopperz/utils/svg_icon.dart';
 import 'package:shopperz/widgets/textwidget.dart';
 
 class AddressCard extends StatefulWidget {
-  const AddressCard({super.key, required this.address});
+  const AddressCard(
+      {super.key, required this.address, required this.fromcheckout});
   final AddressModel? address;
+  final bool? fromcheckout;
 
   @override
   State<AddressCard> createState() => _AddressCardState();
@@ -66,18 +68,26 @@ class _AddressCardState extends State<AddressCard> {
     return Stack(
       children: [
         Container(
-          width: 328.w,
+          width: widget.fromcheckout! ? 230 : 328.w,
+          // height: widget.fromcheckout! ? 130 : 328.w,
           decoration: BoxDecoration(
-              color: AppColor.whiteColor,
+              color: !widget.fromcheckout!
+                  ? AppColor.whiteColor
+                  : Colors.transparent,
               borderRadius: BorderRadius.circular(12.r),
               boxShadow: [
-                BoxShadow(
-                    color: AppColor.blackColor.withOpacity(0.05),
-                    offset: const Offset(0, 0),
-                    blurRadius: 10.r)
+                !widget.fromcheckout!
+                    ? BoxShadow(
+                        color: AppColor.blackColor.withOpacity(0.05),
+                        offset: const Offset(0, 0),
+                        blurRadius: 10.r)
+                    : BoxShadow(
+                        color: Colors.transparent,
+                        offset: const Offset(0, 0),
+                        blurRadius: 10.r)
               ]),
           child: Padding(
-            padding: EdgeInsets.all(12.r),
+            padding: EdgeInsets.all(widget.fromcheckout! ? 2 : 12.r),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -89,7 +99,7 @@ class _AddressCardState extends State<AddressCard> {
                   fontWeight: FontWeight.w600,
                 ),
                 SizedBox(
-                  height: 8.h,
+                  height: widget.fromcheckout! ? 4.h : 8.h,
                 ),
                 TextWidget(
                   text: widget.address!.countryCode.toString() +
@@ -98,11 +108,8 @@ class _AddressCardState extends State<AddressCard> {
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                 ),
-                SizedBox(
-                  height: widget.address!.email.toString() == '' ? 0.h : 8.h,
-                ),
                 widget.address!.email.toString() == ''
-                    ? Container()
+                    ? const SizedBox.shrink()
                     : TextWidget(
                         text: widget.address!.email.toString(),
                         color: AppColor.textColor,
@@ -110,7 +117,7 @@ class _AddressCardState extends State<AddressCard> {
                         fontWeight: FontWeight.w400,
                       ),
                 SizedBox(
-                  height: 8.h,
+                  height: widget.fromcheckout! ? 0.h : 8.h,
                 ),
                 Text(
                   address,
@@ -122,70 +129,63 @@ class _AddressCardState extends State<AddressCard> {
                   maxLines: 3,
                   overflow: TextOverflow.clip,
                 ),
-                // SizedBox(
-                //   height: 8.h,
-                // ),
-                // TextWidget(
-                //   text: widget.address!.address.toString(),
-                //   color: AppColor.textColor,
-                //   fontSize: 12.sp,
-                //   fontWeight: FontWeight.w400,
-                // ),
               ],
             ),
           ),
         ),
-        Positioned(
-          top: 12.h,
-          right: 12.w,
-          child: Row(
-            children: [
-              InkWell(
-                onTap: () {
-                  openEditAddressDialog();
-                },
-                child: Container(
-                  height: 24.r,
-                  width: 24.r,
-                  decoration: BoxDecoration(
-                      color: AppColor.activeColor,
-                      borderRadius: BorderRadius.circular(24.r)),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      SvgIcon.menuEdit,
-                      height: 12.h,
-                      width: 12.w,
-                      color: AppColor.whiteColor,
+        widget.fromcheckout!
+            ? const SizedBox.shrink()
+            : Positioned(
+                top: 12.h,
+                right: 12.w,
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        openEditAddressDialog();
+                      },
+                      child: Container(
+                        height: 24.r,
+                        width: 24.r,
+                        decoration: BoxDecoration(
+                            color: AppColor.activeColor,
+                            borderRadius: BorderRadius.circular(24.r)),
+                        child: Center(
+                          child: SvgPicture.asset(
+                            SvgIcon.menuEdit,
+                            height: 12.h,
+                            width: 12.w,
+                            color: AppColor.whiteColor,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                    SizedBox(
+                      width: 8.w,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        openDeleteAddressDialog();
+                      },
+                      child: Container(
+                        height: 24.r,
+                        width: 24.r,
+                        decoration: BoxDecoration(
+                            color: AppColor.error,
+                            borderRadius: BorderRadius.circular(24.r)),
+                        child: Center(
+                          child: SvgPicture.asset(
+                            SvgIcon.delete,
+                            height: 12.h,
+                            width: 12.w,
+                            color: AppColor.whiteColor,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
-              SizedBox(
-                width: 8.w,
-              ),
-              InkWell(
-                onTap: () {
-                  openDeleteAddressDialog();
-                },
-                child: Container(
-                  height: 24.r,
-                  width: 24.r,
-                  decoration: BoxDecoration(
-                      color: AppColor.error,
-                      borderRadius: BorderRadius.circular(24.r)),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      SvgIcon.delete,
-                      height: 12.h,
-                      width: 12.w,
-                      color: AppColor.whiteColor,
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        )
       ],
     );
   }

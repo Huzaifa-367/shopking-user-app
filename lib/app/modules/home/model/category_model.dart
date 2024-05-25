@@ -1,16 +1,16 @@
 // To parse this JSON data, do
 //
-//     final categoryModel = categoryModelFromJson(jsonString);
+//     final categryModel = categryModelFromJson(jsonString);
 
 import 'dart:convert';
 
-CategoryModel categoryModelFromJson(String str) =>
+CategoryModel categryModelFromJson(String str) =>
     CategoryModel.fromJson(json.decode(str));
 
-String categoryModelToJson(CategoryModel data) => json.encode(data.toJson());
+String categryModelToJson(CategoryModel data) => json.encode(data.toJson());
 
 class CategoryModel {
-  final List<Datum>? data;
+  final List<categryModel>? data;
 
   CategoryModel({
     this.data,
@@ -19,7 +19,8 @@ class CategoryModel {
   factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
         data: json["data"] == null
             ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+            : List<categryModel>.from(
+                json["data"]!.map((x) => categryModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,7 +30,7 @@ class CategoryModel {
       };
 }
 
-class Datum {
+class categryModel {
   final int? id;
   final String? name;
   final String? slug;
@@ -40,7 +41,7 @@ class Datum {
   final String? thumb;
   final String? cover;
 
-  Datum({
+  categryModel({
     this.id,
     this.name,
     this.slug,
@@ -52,7 +53,7 @@ class Datum {
     this.cover,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory categryModel.fromJson(Map<String, dynamic> json) => categryModel(
         id: json["id"],
         name: json["name"],
         slug: json["slug"],

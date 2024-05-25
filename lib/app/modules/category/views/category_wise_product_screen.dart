@@ -29,7 +29,7 @@ class CategoryWiseProductScreen extends StatefulWidget {
       {super.key, this.categoryTreeModel, this.categoryModel, this.brandName});
 
   final CategoryTreeModel? categoryTreeModel;
-  final Datum? categoryModel;
+  final categryModel? categoryModel;
   final String? brandName;
   final int index = -1;
   final int length = 0;

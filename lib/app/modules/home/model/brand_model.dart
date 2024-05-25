@@ -10,7 +10,7 @@ BrandModel brandModelFromJson(String str) =>
 String brandModelToJson(BrandModel data) => json.encode(data.toJson());
 
 class BrandModel {
-  final List<Datum>? data;
+  final List<brandModel>? data;
 
   BrandModel({
     this.data,
@@ -19,7 +19,8 @@ class BrandModel {
   factory BrandModel.fromJson(Map<String, dynamic> json) => BrandModel(
         data: json["data"] == null
             ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+            : List<brandModel>.from(
+                json["data"]!.map((x) => brandModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,7 +30,7 @@ class BrandModel {
       };
 }
 
-class Datum {
+class brandModel {
   final int? id;
   final String? name;
   final String? slug;
@@ -38,7 +39,7 @@ class Datum {
   final String? thumb;
   final String? cover;
 
-  Datum({
+  brandModel({
     this.id,
     this.name,
     this.slug,
@@ -48,7 +49,7 @@ class Datum {
     this.cover,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory brandModel.fromJson(Map<String, dynamic> json) => brandModel(
         id: json["id"],
         name: json["name"],
         slug: json["slug"],

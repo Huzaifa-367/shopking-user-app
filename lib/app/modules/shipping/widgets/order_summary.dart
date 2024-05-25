@@ -38,7 +38,7 @@ class OrderSummay extends StatelessWidget {
           color: AppColor.whiteColor,
           boxShadow: [
             BoxShadow(
-                color: AppColor.blackColor.withOpacity(0.04),
+                color: AppColor.blackColor.withOpacity(0.06),
                 offset: const Offset(0, 0),
                 blurRadius: 10.r)
           ],
@@ -76,9 +76,8 @@ class OrderSummay extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                   TextWidget(
-                    text: '${authController.settingModel!.data!
-                                        .siteDefaultCurrencySymbol
-                                        .toString()}${subTotal!.toStringAsFixed(int.parse(authController.settingModel!.data!.siteDigitAfterDecimalPoint.toString()))}',
+                    text:
+                        '${authController.settingModel!.data!.siteDefaultCurrencySymbol.toString()}${subTotal!.toStringAsFixed(int.parse(authController.settingModel!.data!.siteDigitAfterDecimalPoint.toString()))}',
                     color: AppColor.textColor,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
@@ -101,9 +100,8 @@ class OrderSummay extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                   TextWidget(
-                    text: '${authController.settingModel!.data!
-                                        .siteDefaultCurrencySymbol
-                                        .toString()}${tax!.toStringAsFixed(int.parse(authController.settingModel!.data!.siteDigitAfterDecimalPoint.toString()))}',
+                    text:
+                        '${authController.settingModel!.data!.siteDefaultCurrencySymbol.toString()}${tax!.toStringAsFixed(int.parse(authController.settingModel!.data!.siteDigitAfterDecimalPoint.toString()))}',
                     color: AppColor.textColor,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
@@ -126,9 +124,8 @@ class OrderSummay extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                   TextWidget(
-                    text: '${authController.settingModel!.data!
-                                        .siteDefaultCurrencySymbol
-                                        .toString()}${double.parse(shippingCharge.toString()).toStringAsFixed(int.parse(authController.settingModel!.data!.siteDigitAfterDecimalPoint.toString()))}',
+                    text:
+                        '${authController.settingModel!.data!.siteDefaultCurrencySymbol.toString()}${double.parse(shippingCharge.toString()).toStringAsFixed(int.parse(authController.settingModel!.data!.siteDigitAfterDecimalPoint.toString()))}',
                     color: AppColor.textColor,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
@@ -151,9 +148,8 @@ class OrderSummay extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                   TextWidget(
-                    text: '${authController.settingModel!.data!
-                                        .siteDefaultCurrencySymbol
-                                        .toString()}${discount!.toStringAsFixed(int.parse(authController.settingModel!.data!.siteDigitAfterDecimalPoint.toString()))}',
+                    text:
+                        '${authController.settingModel!.data!.siteDefaultCurrencySymbol.toString()}${discount!.toStringAsFixed(int.parse(authController.settingModel!.data!.siteDigitAfterDecimalPoint.toString()))}',
                     color: AppColor.textColor,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
@@ -180,9 +176,8 @@ class OrderSummay extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                   TextWidget(
-                    text: '${authController.settingModel!.data!
-                                        .siteDefaultCurrencySymbol
-                                        .toString()}${total!.toStringAsFixed(int.parse(authController.settingModel!.data!.siteDigitAfterDecimalPoint.toString()))}',
+                    text:
+                        '${authController.settingModel!.data!.siteDefaultCurrencySymbol.toString()}${total!.toStringAsFixed(int.parse(authController.settingModel!.data!.siteDigitAfterDecimalPoint.toString()))}',
                     color: AppColor.textColor,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w700,

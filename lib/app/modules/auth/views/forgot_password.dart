@@ -10,7 +10,7 @@ import 'package:shopperz/utils/svg_icon.dart';
 import 'package:shopperz/utils/validation_rules.dart';
 import 'package:shopperz/widgets/appbar3.dart';
 import 'package:shopperz/widgets/loader/loader.dart';
-
+import '../../../../widgets/form_field_title.dart';
 import '../../../../config/theme/app_color.dart';
 import '../../../../widgets/custom_text.dart';
 import '../../../../widgets/primary_button.dart';
@@ -51,7 +51,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value:const SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.white,
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.dark,
@@ -80,7 +80,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                 size: 26.sp,
                                 weight: FontWeight.w700),
                             SizedBox(height: 20.h),
-                            const SwapFieldTitle(),
+                            // const SwapFieldTitle(),
+                            FormFieldTitle(title: "Email".tr),
                             SizedBox(height: 4.h),
                             SwapFormField(
                               emailController: emailController,

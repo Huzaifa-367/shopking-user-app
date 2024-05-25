@@ -40,8 +40,10 @@ class _AddNewAddressDialogState extends State<AddNewAddressDialog> {
     super.initState();
     auth.getSetting();
     auth.getCountryCode();
-
     addressController.countryCode = auth.countryCode;
+    addressController.emailTextController.text = profile.emailController.text;
+    addressController.nameTextController.text = profile.nameController.text;
+    addressController.phoneTextController.text = profile.phoneController.text;
   }
 
   @override

@@ -11,14 +11,14 @@ String areaShippingModelToJson(AreaShippingModel data) =>
     json.encode(data.toJson());
 
 class AreaShippingModel {
-  List<Datum>? data;
+  List<areaShippingModel>? data;
 
   AreaShippingModel({
     this.data,
   });
 
   AreaShippingModel copyWith({
-    List<Datum>? data,
+    List<areaShippingModel>? data,
   }) =>
       AreaShippingModel(
         data: data ?? this.data,
@@ -28,7 +28,8 @@ class AreaShippingModel {
       AreaShippingModel(
         data: json["data"] == null
             ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+            : List<areaShippingModel>.from(
+                json["data"]!.map((x) => areaShippingModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -38,7 +39,7 @@ class AreaShippingModel {
       };
 }
 
-class Datum {
+class areaShippingModel {
   int? id;
   String? country;
   String? state;
@@ -46,7 +47,7 @@ class Datum {
   String? shippingCost;
   int? status;
 
-  Datum({
+  areaShippingModel({
     this.id,
     this.country,
     this.state,
@@ -55,7 +56,7 @@ class Datum {
     this.status,
   });
 
-  Datum copyWith({
+  areaShippingModel copyWith({
     int? id,
     String? country,
     String? state,
@@ -63,7 +64,7 @@ class Datum {
     String? shippingCost,
     int? status,
   }) =>
-      Datum(
+      areaShippingModel(
         id: id ?? this.id,
         country: country ?? this.country,
         state: state ?? this.state,
@@ -72,7 +73,8 @@ class Datum {
         status: status ?? this.status,
       );
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory areaShippingModel.fromJson(Map<String, dynamic> json) =>
+      areaShippingModel(
         id: json["id"],
         country: json["country"],
         state: json["state"],

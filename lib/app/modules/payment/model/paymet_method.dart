@@ -11,14 +11,14 @@ String paymentMethodModelToJson(PaymentMethodModel data) =>
     json.encode(data.toJson());
 
 class PaymentMethodModel {
-  List<Datum>? data;
+  List<paymentMethodModel>? data;
 
   PaymentMethodModel({
     this.data,
   });
 
   PaymentMethodModel copyWith({
-    List<Datum>? data,
+    List<paymentMethodModel>? data,
   }) =>
       PaymentMethodModel(
         data: data ?? this.data,
@@ -28,7 +28,8 @@ class PaymentMethodModel {
       PaymentMethodModel(
         data: json["data"] == null
             ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+            : List<paymentMethodModel>.from(
+                json["data"]!.map((x) => paymentMethodModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -38,14 +39,14 @@ class PaymentMethodModel {
       };
 }
 
-class Datum {
+class paymentMethodModel {
   int? id;
   String? name;
   String? slug;
   int? status;
   String? image;
 
-  Datum({
+  paymentMethodModel({
     this.id,
     this.name,
     this.slug,
@@ -53,14 +54,14 @@ class Datum {
     this.image,
   });
 
-  Datum copyWith({
+  paymentMethodModel copyWith({
     int? id,
     String? name,
     String? slug,
     int? status,
     String? image,
   }) =>
-      Datum(
+      paymentMethodModel(
         id: id ?? this.id,
         name: name ?? this.name,
         slug: slug ?? this.slug,
@@ -68,7 +69,8 @@ class Datum {
         image: image ?? this.image,
       );
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory paymentMethodModel.fromJson(Map<String, dynamic> json) =>
+      paymentMethodModel(
         id: json["id"],
         name: json["name"],
         slug: json["slug"],

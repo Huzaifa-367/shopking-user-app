@@ -10,7 +10,7 @@ CouponModel couponModelFromJson(String str) =>
 String couponModelToJson(CouponModel data) => json.encode(data.toJson());
 
 class CouponModel {
-  final List<Datum>? data;
+  final List<CuponModel>? data;
 
   CouponModel({
     this.data,
@@ -19,7 +19,8 @@ class CouponModel {
   factory CouponModel.fromJson(Map<String, dynamic> json) => CouponModel(
         data: json["data"] == null
             ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+            : List<CuponModel>.from(
+                json["data"]!.map((x) => CuponModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,7 +30,7 @@ class CouponModel {
       };
 }
 
-class Datum {
+class CuponModel {
   final int? id;
   final String? name;
   final String? description;
@@ -54,7 +55,7 @@ class Datum {
   final int? limitPerUser;
   final String? image;
 
-  Datum({
+  CuponModel({
     this.id,
     this.name,
     this.description,
@@ -80,7 +81,7 @@ class Datum {
     this.image,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory CuponModel.fromJson(Map<String, dynamic> json) => CuponModel(
         id: json["id"],
         name: json["name"],
         description: json["description"],

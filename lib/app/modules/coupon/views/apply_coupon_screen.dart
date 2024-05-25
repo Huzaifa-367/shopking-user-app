@@ -147,7 +147,7 @@ class _ApplyCouponScreenState extends State<ApplyCouponScreen> {
                           height: 44.h,
                           width: 75.w,
                           decoration: BoxDecoration(
-                            color: AppColor.applyCouponColor,
+                            color: AppColor.primaryColor,
                             borderRadius: BorderRadius.only(
                               topRight: Radius.circular(8.r),
                               bottomRight: Radius.circular(8.r),
@@ -183,43 +183,66 @@ class _ApplyCouponScreenState extends State<ApplyCouponScreen> {
                   height: 8.h,
                 ),
                 Obx(
-                  () => ListView.builder(
-                    itemCount:
-                        couponController.couponModel.value.data?.length ?? 0,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      final coupon = couponController.couponModel.value.data;
-                      couponController.discountPrice.value =
-                          coupon![index].convertDiscount.toString();
-                      return Padding(
-                        padding: EdgeInsets.only(bottom: 16.h),
-                        child: Obx(
-                          () => couponController.isLoading.value
-                              ? const CircularProgressIndicator()
-                              : CouponWidget(
-                                  name: coupon[index].name,
-                                  description: coupon[index].description,
-                                  startDate: coupon[index].convertStartDate,
-                                  endDate: coupon[index].convertEndDate,
-                                  onTap: () {
-                                    if (box.read("isLogedIn") == false) {
-                                      Get.off(() => const SignInScreen());
-                                    }
-                                    couponController.setCoupon(
-                                        coupon[index].code.toString());
+                  () => SizedBox(
+                    child: couponController.couponModel.value.data!.isEmpty
+                        ? SizedBox(
+                            height: 50,
+                            child: Center(
+                              child: TextWidget(
+                                text: "Coupons Not Found",
+                                color: AppColor.textColor,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                        : ListView.builder(
+                            itemCount: couponController
+                                    .couponModel.value.data?.length ??
+                                0,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              final coupon =
+                                  couponController.couponModel.value.data;
+                              couponController.discountPrice.value =
+                                  coupon![index].convertDiscount.toString();
+                              return Padding(
+                                padding: EdgeInsets.only(bottom: 16.h),
+                                child: Obx(
+                                  () => couponController.isLoading.value
+                                      ? const CircularProgressIndicator()
+                                      : CouponWidget(
+                                          name: coupon[index].name,
+                                          description:
+                                              coupon[index].description,
+                                          startDate:
+                                              coupon[index].convertStartDate,
+                                          endDate: coupon[index].convertEndDate,
+                                          onTap: () {
+                                            if (box.read("isLogedIn") ==
+                                                false) {
+                                              Get.off(
+                                                  () => const SignInScreen());
+                                            }
+                                            couponController.setCoupon(
+                                                coupon[index].code.toString());
 
-                                    couponController.couponTextController.text =
-                                        couponController.couponCode.value;
-                                    couponController.discountPrice.value =
-                                        coupon[index]
-                                            .convertDiscount
-                                            .toString();
-                                  },
+                                            couponController
+                                                    .couponTextController.text =
+                                                couponController
+                                                    .couponCode.value;
+                                            couponController
+                                                    .discountPrice.value =
+                                                coupon[index]
+                                                    .convertDiscount
+                                                    .toString();
+                                          },
+                                        ),
                                 ),
-                        ),
-                      );
-                    },
+                              );
+                            },
+                          ),
                   ),
                 )
               ],

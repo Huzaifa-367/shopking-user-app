@@ -10,7 +10,7 @@ OutletModel outletModelFromJson(String str) =>
 String outletModelToJson(OutletModel data) => json.encode(data.toJson());
 
 class OutletModel {
-  final List<Datum>? data;
+  final List<outletModel>? data;
 
   OutletModel({
     this.data,
@@ -19,7 +19,8 @@ class OutletModel {
   factory OutletModel.fromJson(Map<String, dynamic> json) => OutletModel(
         data: json["data"] == null
             ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+            : List<outletModel>.from(
+                json["data"]!.map((x) => outletModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,7 +30,7 @@ class OutletModel {
       };
 }
 
-class Datum {
+class outletModel {
   final int? id;
   final String? name;
   final String? email;
@@ -43,7 +44,7 @@ class Datum {
   final String? address;
   final int? status;
 
-  Datum({
+  outletModel({
     this.id,
     this.name,
     this.email,
@@ -58,7 +59,7 @@ class Datum {
     this.status,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory outletModel.fromJson(Map<String, dynamic> json) => outletModel(
         id: json["id"],
         name: json["name"],
         email: json["email"],

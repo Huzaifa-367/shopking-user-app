@@ -6,7 +6,8 @@ import 'package:get/get.dart';
 import 'package:shopperz/app/modules/auth/controller/auth_controler.dart';
 import 'package:shopperz/app/modules/profile/controller/profile_controller.dart';
 import 'package:shopperz/app/modules/profile/widgets/add_new_address.dart';
-import 'package:shopperz/app/modules/profile/widgets/address_widget.dart';
+import 'package:shopperz/app/modules/shipping/widgets/outlet_address_widget.dart';
+import 'package:shopperz/app/modules/shipping/widgets/address_card.dart';
 import 'package:shopperz/main.dart';
 import 'package:shopperz/utils/images.dart';
 import 'package:shopperz/widgets/appbar3.dart';
@@ -46,7 +47,7 @@ class _AddressScreenState extends State<AddressScreen> {
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value:const SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.white,
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.dark,
@@ -68,7 +69,7 @@ class _AddressScreenState extends State<AddressScreen> {
             auth.getSetting();
           },
           child: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Column(
@@ -85,21 +86,27 @@ class _AddressScreenState extends State<AddressScreen> {
                   ),
                   SizedBox(height: 20.h),
                   Obx(
-                    () => profile.addressMap.isNotEmpty && profile.addressModel!.data!.length > 0
+                    () => profile.addressMap.isNotEmpty &&
+                            profile.addressModel!.data!.isNotEmpty
                         ? ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: profile.addressModel!.data!.length,
                             itemBuilder: (context, index) => Padding(
                               padding: EdgeInsets.only(bottom: 15.h),
-                              child: AddressWidget(
+                              child: AddressCard(
                                 address: profile.addressModel!.data![index],
+                                fromcheckout: false,
                               ),
                             ),
                           )
                         : Center(
-                                child: Image.asset(AppImages.emptyIcon,height: 300.h,width: 300.w,),
-                              ),
+                            child: Image.asset(
+                              AppImages.emptyIcon,
+                              height: 300.h,
+                              width: 300.w,
+                            ),
+                          ),
                   ),
                   SizedBox(height: 20.h),
                   InkWell(

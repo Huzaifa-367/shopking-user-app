@@ -42,7 +42,7 @@ class NavBarView extends StatelessWidget {
     List<Widget> screens = [
       const HomeScreen(),
       const CategoryScreen(),
-      CartScreen(),
+      const CartScreen(),
       const WishlistScreen(),
       const ProfileScreen()
     ];
@@ -60,11 +60,11 @@ class NavBarView extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Press back again to exit.'.tr,
-                    style: TextStyle(color: Colors.white)),
+                    style: const TextStyle(color: Colors.white)),
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: AppColor.primaryColor,
-                duration: Duration(seconds: 2),
-                margin: EdgeInsets.all(10),
+                duration: const Duration(seconds: 2),
+                margin: const EdgeInsets.all(10),
               ),
             );
             navController.canExit.value = true;
@@ -117,7 +117,7 @@ class NavBarView extends StatelessWidget {
                         BoxShadow(
                             color: AppColor.primaryColor.withOpacity(0.34),
                             blurRadius: 10.r,
-                            offset: Offset(0, 6))
+                            offset: const Offset(0, 6))
                       ]),
                   child: Stack(
                     children: [
@@ -189,7 +189,7 @@ class NavBarView extends StatelessWidget {
                         navController.selectPage(3);
                         await Get.put(WishlistController()).fetchFavorite();
                       } else {
-                        Get.to(() => SignInScreen());
+                        Get.to(() => const SignInScreen());
                       }
                     }),
                 BottomNavItem(

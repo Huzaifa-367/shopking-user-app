@@ -1,5 +1,5 @@
 class ApiList {
-  static const baseUrl = "https://sahulatshopping.com";
+  static const baseUrl = "https://shopking.alfbakers.com";
   static const licenseCode = "331FD3FF-C4AE-48D9-AC57-ADAC920C08DQ";
   static const login = "$baseUrl/api/auth/login";
   static const forgotPassword = "$baseUrl/api/auth/forgot-password";
